@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "deletedAt": {
+      "$ref": "#/components/schemas/ZedToken",
+      "description": "deleted_at is the revision at which the relationships were deleted."
+    },
+    "deletionProgress": {
+      "$ref": "#/components/schemas/DeletionProgress",
+      "description": "deletion_progress is an enumeration of the possible outcomes that occurred when attempting to delete the specified relationships."
+    },
+    "relationshipsDeletedCount": {
+      "type": "string",
+      "format": "uint64",
+      "description": "relationships_deleted_count is the number of relationships that were deleted."
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/DeleteRelationshipsResponse.json",
+  "title": "DeleteRelationshipsResponse"
+}

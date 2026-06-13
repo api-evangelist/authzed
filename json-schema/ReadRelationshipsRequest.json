@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "consistency": {
+      "$ref": "#/components/schemas/Consistency"
+    },
+    "relationshipFilter": {
+      "$ref": "#/components/schemas/RelationshipFilter",
+      "description": "relationship_filter defines the filter to be applied to the relationships\nto be returned."
+    },
+    "optionalLimit": {
+      "type": "integer",
+      "format": "int64",
+      "description": "optional_limit, if non-zero, specifies the limit on the number of relationships to return\nbefore the stream is closed on the server side. By default, the stream will continue\nresolving relationships until exhausted or the stream is closed due to the client or a\nnetwork issue."
+    },
+    "optionalCursor": {
+      "$ref": "#/components/schemas/v1.Cursor",
+      "description": "optional_cursor, if specified, indicates the cursor after which results should resume being returned.\nThe cursor can be found on the ReadRelationshipsResponse object."
+    }
+  },
+  "description": "ReadRelationshipsRequest specifies one or more filters used to read matching\nrelationships within the system.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/ReadRelationshipsRequest.json",
+  "title": "ReadRelationshipsRequest"
+}

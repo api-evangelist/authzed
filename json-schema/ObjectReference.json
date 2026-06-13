@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "objectType": {
+      "type": "string"
+    },
+    "objectId": {
+      "type": "string"
+    }
+  },
+  "description": "ObjectReference is used to refer to a specific object in the system.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/ObjectReference.json",
+  "title": "ObjectReference"
+}

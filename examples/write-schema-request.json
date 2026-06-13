@@ -1,0 +1,3 @@
+{
+  "schema": "definition user {}\n\ndefinition document {\n  relation writer: user\n  relation viewer: user\n  permission view = viewer + writer\n  permission edit = writer\n}"
+}

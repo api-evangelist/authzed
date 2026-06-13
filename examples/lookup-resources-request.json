@@ -1,0 +1,13 @@
+{
+  "consistency": {
+    "fullyConsistent": true
+  },
+  "resourceObjectType": "document",
+  "permission": "view",
+  "subject": {
+    "object": {
+      "objectType": "user",
+      "objectId": "user456"
+    }
+  }
+}

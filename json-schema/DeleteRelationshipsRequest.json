@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "relationshipFilter": {
+      "$ref": "#/components/schemas/RelationshipFilter"
+    },
+    "optionalPreconditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/components/schemas/Precondition"
+      },
+      "title": "To be bounded by configuration"
+    },
+    "optionalLimit": {
+      "type": "integer",
+      "format": "int64",
+      "description": "optional_limit, if non-zero, specifies the limit on the number of relationships to be deleted.\nIf there are more matching relationships found to be deleted than the limit specified here,\nthe deletion call will fail with an error to prevent partial deletion. If partial deletion\nis needed, specify below that partial deletion is allowed. Partial deletions can be used\nin a loop to delete large amounts of relationships in a *non-transactional* manner."
+    },
+    "optionalAllowPartialDeletions": {
+      "type": "boolean",
+      "description": "optional_allow_partial_deletions, if true and a limit is specified, will delete matching found\nrelationships up to the count specified in optional_limit, and no more."
+    },
+    "optionalTransactionMetadata": {
+      "type": "object",
+      "description": "optional_transaction_metadata is an optional field that can be used to store metadata about the transaction.\nIf specified, this metadata will be supplied in the WatchResponse for the deletions associated with\nthis transaction."
+    }
+  },
+  "description": "DeleteRelationshipsRequest specifies which Relationships should be deleted,\nrequesting the delete of *ALL* relationships that match the specified\nfilters. If the optional_preconditions parameter is included, all of the\nspecified preconditions must also be satisfied before the delete will be\nexecuted.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/DeleteRelationshipsRequest.json",
+  "title": "DeleteRelationshipsRequest"
+}

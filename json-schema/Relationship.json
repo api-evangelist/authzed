@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "resource": {
+      "$ref": "#/components/schemas/ObjectReference",
+      "title": "resource is the resource to which the subject is related, in some manner"
+    },
+    "relation": {
+      "type": "string",
+      "description": "relation is how the resource and subject are related."
+    },
+    "subject": {
+      "$ref": "#/components/schemas/SubjectReference",
+      "description": "subject is the subject to which the resource is related, in some manner."
+    },
+    "optionalCaveat": {
+      "$ref": "#/components/schemas/ContextualizedCaveat",
+      "title": "optional_caveat is a reference to a the caveat that must be enforced over the relationship"
+    },
+    "optionalExpiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "optional_expires_at is the time at which the relationship expires, if any."
+    }
+  },
+  "description": "Relationship specifies how a resource relates to a subject. Relationships\nform the data for the graph over which all permissions questions are\nanswered.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/Relationship.json",
+  "title": "Relationship"
+}

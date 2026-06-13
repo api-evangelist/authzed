@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string"
+    }
+  },
+  "description": "ZedToken represents a point in time, or a \"revision\" in SpiceDB.\nIt is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)\nand can also be used to start watching for changes from a specific point in time.\n\nSee the authzed.api.v1.Consistency message for more information.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/ZedToken.json",
+  "title": "ZedToken"
+}

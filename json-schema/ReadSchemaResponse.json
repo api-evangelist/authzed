@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaText": {
+      "type": "string",
+      "title": "schema_text is the textual form of the current schema in the system"
+    },
+    "readAt": {
+      "$ref": "#/components/schemas/ZedToken",
+      "description": "read_at is the ZedToken at which the schema was read."
+    }
+  },
+  "description": "ReadSchemaResponse is the resulting data after having read the Object\nDefinitions from a Schema.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/ReadSchemaResponse.json",
+  "title": "ReadSchemaResponse"
+}

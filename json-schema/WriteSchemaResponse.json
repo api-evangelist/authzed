@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "writtenAt": {
+      "$ref": "#/components/schemas/ZedToken",
+      "description": "written_at is the ZedToken at which the schema was written."
+    }
+  },
+  "description": "WriteSchemaResponse is the resulting data after having written a Schema to\na Permissions System.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/WriteSchemaResponse.json",
+  "title": "WriteSchemaResponse"
+}

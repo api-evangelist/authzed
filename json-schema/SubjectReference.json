@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "object": {
+      "$ref": "#/components/schemas/ObjectReference"
+    },
+    "optionalRelation": {
+      "type": "string"
+    }
+  },
+  "title": "SubjectReference",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/SubjectReference.json"
+}

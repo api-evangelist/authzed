@@ -1,0 +1,178 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://authzed.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "Authzed": "https://authzed.com/vocab/Authzed",
+    "SpiceDB": "https://authzed.com/vocab/SpiceDB",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+
+    "Relationship": {
+      "@id": "https://authzed.com/vocab/Relationship",
+      "@type": "@id"
+    },
+    "ObjectReference": {
+      "@id": "https://authzed.com/vocab/ObjectReference",
+      "@type": "@id"
+    },
+    "SubjectReference": {
+      "@id": "https://authzed.com/vocab/SubjectReference",
+      "@type": "@id"
+    },
+    "ZedToken": {
+      "@id": "https://authzed.com/vocab/ZedToken",
+      "@type": "@id"
+    },
+    "Permission": {
+      "@id": "https://authzed.com/vocab/Permission",
+      "@type": "@id"
+    },
+    "Relation": {
+      "@id": "https://authzed.com/vocab/Relation",
+      "@type": "@id"
+    },
+    "Caveat": {
+      "@id": "https://authzed.com/vocab/Caveat",
+      "@type": "@id"
+    },
+    "Schema": {
+      "@id": "https://authzed.com/vocab/Schema",
+      "@type": "@id"
+    },
+    "Permissionship": {
+      "@id": "https://authzed.com/vocab/Permissionship",
+      "@type": "@id"
+    },
+    "Consistency": {
+      "@id": "https://authzed.com/vocab/Consistency",
+      "@type": "@id"
+    },
+
+    "objectType": {
+      "@id": "https://authzed.com/vocab/objectType",
+      "@type": "xsd:string"
+    },
+    "objectId": {
+      "@id": "https://authzed.com/vocab/objectId",
+      "@type": "xsd:string"
+    },
+    "relation": {
+      "@id": "https://authzed.com/vocab/relation",
+      "@type": "xsd:string"
+    },
+    "permission": {
+      "@id": "https://authzed.com/vocab/permission",
+      "@type": "xsd:string"
+    },
+    "resource": {
+      "@id": "https://authzed.com/vocab/resource",
+      "@type": "@id"
+    },
+    "subject": {
+      "@id": "https://authzed.com/vocab/subject",
+      "@type": "@id"
+    },
+    "token": {
+      "@id": "https://authzed.com/vocab/token",
+      "@type": "xsd:string"
+    },
+    "permissionship": {
+      "@id": "https://authzed.com/vocab/permissionship",
+      "@type": "xsd:string"
+    },
+    "caveatExpression": {
+      "@id": "https://authzed.com/vocab/caveatExpression",
+      "@type": "xsd:string"
+    },
+    "schemaText": {
+      "@id": "https://authzed.com/vocab/schemaText",
+      "@type": "xsd:string"
+    },
+
+    "CheckPermission": {
+      "@id": "https://authzed.com/vocab/CheckPermission",
+      "@type": "@id"
+    },
+    "WriteRelationships": {
+      "@id": "https://authzed.com/vocab/WriteRelationships",
+      "@type": "@id"
+    },
+    "ReadRelationships": {
+      "@id": "https://authzed.com/vocab/ReadRelationships",
+      "@type": "@id"
+    },
+    "DeleteRelationships": {
+      "@id": "https://authzed.com/vocab/DeleteRelationships",
+      "@type": "@id"
+    },
+    "WriteSchema": {
+      "@id": "https://authzed.com/vocab/WriteSchema",
+      "@type": "@id"
+    },
+    "ReadSchema": {
+      "@id": "https://authzed.com/vocab/ReadSchema",
+      "@type": "@id"
+    },
+    "LookupResources": {
+      "@id": "https://authzed.com/vocab/LookupResources",
+      "@type": "@id"
+    },
+    "LookupSubjects": {
+      "@id": "https://authzed.com/vocab/LookupSubjects",
+      "@type": "@id"
+    },
+    "ExpandPermissionTree": {
+      "@id": "https://authzed.com/vocab/ExpandPermissionTree",
+      "@type": "@id"
+    },
+    "Watch": {
+      "@id": "https://authzed.com/vocab/Watch",
+      "@type": "@id"
+    },
+
+    "api": {
+      "@id": "schema:WebAPI",
+      "@type": "@id"
+    },
+    "provider": {
+      "@id": "schema:Organization",
+      "@type": "@id"
+    },
+    "baseUrl": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "documentation": {
+      "@id": "schema:documentation",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://authzed.com",
+      "@type": "schema:Organization",
+      "name": "Authzed",
+      "description": "Authzed is a SpiceDB-based authorization platform providing REST and gRPC APIs for Zanzibar-style relationship-based access control.",
+      "url": "https://authzed.com",
+      "schema:sameAs": "https://github.com/authzed"
+    },
+    {
+      "@id": "https://authzed.com/api/spicedb-permissions",
+      "@type": "schema:WebAPI",
+      "name": "Authzed SpiceDB Permissions API",
+      "description": "gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model.",
+      "url": "https://authzed.com/docs/spicedb/getting-started/discovering-spicedb",
+      "schema:provider": {"@id": "https://authzed.com"},
+      "schema:version": "1.0",
+      "schema:license": "https://github.com/authzed/api/blob/main/LICENSE"
+    }
+  ]
+}

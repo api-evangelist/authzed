@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "readAt": {
+      "$ref": "#/components/schemas/ZedToken",
+      "description": "read_at is the ZedToken at which the relationship was found."
+    },
+    "relationship": {
+      "$ref": "#/components/schemas/Relationship",
+      "description": "relationship is the found relationship."
+    },
+    "afterResultCursor": {
+      "$ref": "#/components/schemas/v1.Cursor",
+      "description": "after_result_cursor holds a cursor that can be used to resume the ReadRelationships stream after this\nresult."
+    }
+  },
+  "description": "ReadRelationshipsResponse contains a Relationship found that matches the\nspecified relationship filter(s). A instance of this response message will\nbe streamed to the client for each relationship found.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/ReadRelationshipsResponse.json",
+  "title": "ReadRelationshipsResponse"
+}

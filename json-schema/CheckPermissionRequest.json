@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "consistency": {
+      "$ref": "#/components/schemas/Consistency"
+    },
+    "resource": {
+      "$ref": "#/components/schemas/ObjectReference",
+      "description": "resource is the resource on which to check the permission or relation."
+    },
+    "permission": {
+      "type": "string",
+      "description": "permission is the name of the permission (or relation) on which to execute\nthe check."
+    },
+    "subject": {
+      "$ref": "#/components/schemas/SubjectReference",
+      "description": "subject is the subject that will be checked for the permission or relation."
+    },
+    "context": {
+      "type": "object",
+      "title": "context consists of named values that are injected into the caveat evaluation context"
+    },
+    "withTracing": {
+      "type": "boolean",
+      "description": "with_tracing, if true, indicates that the response should include a debug trace.\nThis can be useful for debugging and performance analysis, but adds a small amount\nof compute overhead to the request."
+    }
+  },
+  "description": "CheckPermissionRequest issues a check on whether a subject has a permission\nor is a member of a relation, on a specific resource.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/CheckPermissionRequest.json",
+  "title": "CheckPermissionRequest"
+}

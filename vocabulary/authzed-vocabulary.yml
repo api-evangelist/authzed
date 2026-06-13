@@ -1,0 +1,145 @@
+vocabulary:
+  name: Authzed SpiceDB API Vocabulary
+  description: >-
+    Domain vocabulary for the Authzed SpiceDB authorization platform, covering
+    Zanzibar-style relationship-based access control (ReBAC) concepts.
+  version: "1.0"
+  source: https://authzed.com/docs
+  terms:
+
+    - term: SpiceDB
+      definition: >-
+        Open-source, Google Zanzibar-inspired database for storing and querying
+        fine-grained authorization data. The core engine behind Authzed Cloud.
+      category: platform
+
+    - term: Authzed Cloud
+      definition: >-
+        Managed, hosted SpiceDB infrastructure provided by Authzed, Inc. with
+        pay-as-you-grow billing and multi-region deployment options.
+      category: platform
+
+    - term: ZedToken
+      definition: >-
+        An opaque consistency token returned by SpiceDB after write operations,
+        used to enforce read-your-writes consistency in subsequent requests.
+      category: consistency
+
+    - term: Relationship
+      definition: >-
+        A tuple expressing that a subject has a particular relation to a resource
+        object. The fundamental data unit in SpiceDB (e.g., user:alice#viewer@document:readme).
+      category: data-model
+
+    - term: ObjectReference
+      definition: >-
+        A reference to a SpiceDB object, consisting of an objectType (namespace)
+        and objectId (unique identifier within that namespace).
+      category: data-model
+
+    - term: SubjectReference
+      definition: >-
+        A reference to a subject in a relationship tuple, consisting of an
+        ObjectReference and an optional relation (for subject sets).
+      category: data-model
+
+    - term: Permission
+      definition: >-
+        A computed access right derived from relationships via schema-defined
+        rules. Examples: view, edit, delete. Checked via CheckPermission.
+      category: authorization
+
+    - term: Relation
+      definition: >-
+        A named edge type in the SpiceDB graph (e.g., viewer, writer, owner).
+        Relations are declared in the schema and used to link subjects to resources.
+      category: data-model
+
+    - term: CheckPermission
+      definition: >-
+        API operation that evaluates whether a given subject has a specified
+        permission on a resource. Returns PERMISSIONSHIP_HAS_PERMISSION or
+        PERMISSIONSHIP_NO_PERMISSION.
+      category: operation
+
+    - term: LookupResources
+      definition: >-
+        API operation that returns all resource IDs of a given type for which
+        a subject has a specified permission.
+      category: operation
+
+    - term: LookupSubjects
+      definition: >-
+        API operation that returns all subjects of a given type that have a
+        specified permission on a resource.
+      category: operation
+
+    - term: WriteRelationships
+      definition: >-
+        API operation to atomically create or delete relationship tuples in bulk.
+        Supports OPERATION_CREATE, OPERATION_DELETE, and OPERATION_TOUCH.
+      category: operation
+
+    - term: Schema
+      definition: >-
+        A SpiceDB schema definition that declares object types (namespaces),
+        their relations, and permission computation rules using a Zanzibar DSL.
+      category: data-model
+
+    - term: Caveat
+      definition: >-
+        A named CEAL (Common Expression Language) expression attached to a
+        relationship to add contextual, attribute-based conditions to permission
+        checks.
+      category: authorization
+
+    - term: Zanzibar
+      definition: >-
+        Google's global authorization system paper that describes the relationship-
+        based access control model that SpiceDB implements.
+      category: concept
+
+    - term: ReBAC
+      definition: >-
+        Relationship-Based Access Control. An authorization model where permissions
+        are determined by graph traversal over relationship tuples rather than
+        static role assignments.
+      category: concept
+
+    - term: Permissionship
+      definition: >-
+        The result enum from a CheckPermission call. Values include
+        PERMISSIONSHIP_HAS_PERMISSION, PERMISSIONSHIP_NO_PERMISSION, and
+        PERMISSIONSHIP_CONDITIONAL_PERMISSION (when caveats are involved).
+      category: authorization
+
+    - term: Consistency
+      definition: >-
+        The consistency level requested for a SpiceDB read operation. Options include
+        minimizeLatency, atLeastAsFresh (using a ZedToken), atExactSnapshot,
+        and fullyConsistent.
+      category: consistency
+
+    - term: ExpandPermissionTree
+      definition: >-
+        API operation that returns the permission relationship tree for a given
+        resource and permission, showing how the permission is derived from relations.
+      category: operation
+
+    - term: Watch
+      definition: >-
+        Streaming API operation that delivers real-time notifications of relationship
+        changes, filtered by optional object types.
+      category: operation
+
+    - term: BulkCheckPermission
+      definition: >-
+        Experimental API operation to evaluate multiple permission checks in a single
+        batch request, reducing round-trip overhead.
+      category: operation
+
+    - term: preshared-key
+      definition: >-
+        The authentication credential for SpiceDB APIs, passed as
+        Authorization: Bearer <preshared-key>. Generated per permission system.
+      category: security

@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "intermediate": {
+      "$ref": "#/components/schemas/AlgebraicSubjectSet"
+    },
+    "leaf": {
+      "$ref": "#/components/schemas/DirectSubjectSet"
+    },
+    "expandedObject": {
+      "$ref": "#/components/schemas/ObjectReference"
+    },
+    "expandedRelation": {
+      "type": "string"
+    }
+  },
+  "description": "PermissionRelationshipTree is used for representing a tree of a resource and\nits permission relationships with other objects.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/PermissionRelationshipTree.json",
+  "title": "PermissionRelationshipTree"
+}

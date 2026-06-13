@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "writtenAt": {
+      "$ref": "#/components/schemas/ZedToken",
+      "description": "written_at is the revision at which the relationships were written or deleted."
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/WriteRelationshipsResponse.json",
+  "title": "WriteRelationshipsResponse"
+}

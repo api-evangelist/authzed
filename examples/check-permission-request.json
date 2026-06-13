@@ -1,0 +1,16 @@
+{
+  "consistency": {
+    "minimizeLatency": true
+  },
+  "resource": {
+    "objectType": "document",
+    "objectId": "doc123"
+  },
+  "permission": "view",
+  "subject": {
+    "object": {
+      "objectType": "user",
+      "objectId": "user456"
+    }
+  }
+}

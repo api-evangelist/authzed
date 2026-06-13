@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "updates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/components/schemas/RelationshipUpdate"
+      }
+    },
+    "optionalPreconditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/components/schemas/Precondition"
+      },
+      "title": "To be bounded by configuration"
+    },
+    "optionalTransactionMetadata": {
+      "type": "object",
+      "description": "optional_transaction_metadata is an optional field that can be used to store metadata about the transaction.\nIf specified, this metadata will be supplied in the WatchResponse for the updates associated with this\ntransaction."
+    }
+  },
+  "description": "WriteRelationshipsRequest contains a list of Relationship mutations that\nshould be applied to the service. If the optional_preconditions parameter\nis included, all of the specified preconditions must also be satisfied before\nthe write will be committed. All updates will be applied transactionally,\nand if any preconditions fail, the entire transaction will be reverted.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/WriteRelationshipsRequest.json",
+  "title": "WriteRelationshipsRequest"
+}

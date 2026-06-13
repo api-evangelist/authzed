@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "checkedAt": {
+      "$ref": "#/components/schemas/ZedToken"
+    },
+    "permissionship": {
+      "$ref": "#/components/schemas/CheckPermissionResponse.Permissionship",
+      "description": "Permissionship communicates whether or not the subject has the requested\npermission or has a relationship with the given resource, over the given\nrelation.\n\nThis value will be authzed.api.v1.PERMISSIONSHIP_HAS_PERMISSION if the\nrequested subject is a member of the computed permission set or there\nexists a relationship with the requested relation from the given resource\nto the given subject."
+    },
+    "partialCaveatInfo": {
+      "$ref": "#/components/schemas/PartialCaveatInfo",
+      "title": "partial_caveat_info holds information of a partially-evaluated caveated response"
+    },
+    "debugTrace": {
+      "$ref": "#/components/schemas/DebugInformation",
+      "description": "debug_trace is the debugging trace of this check, if requested."
+    },
+    "optionalExpiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "optional_expires_at is the time at which at least one of the relationships used to\ncompute this result, expires (if any). This is *not* related to the caching window."
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/authzed/main/json-schema/CheckPermissionResponse.json",
+  "title": "CheckPermissionResponse"
+}
