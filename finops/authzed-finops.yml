@@ -1,0 +1,120 @@
+name: Authzed FinOps Framework
+description: >-
+  FinOps guidance for managing Authzed Cloud and SpiceDB infrastructure costs.
+  Authzed Cloud uses hourly metered, resource-based billing invoiced monthly in
+  arrears. Cost drivers are compute (vCPU hours), storage (relationship and
+  schema data), and support tier. Self-hosted deployments shift costs to
+  infrastructure and annual license fees.
+version: '1.0'
+url: https://authzed.com/pricing
+focusVersion: '1.0'
+
+costDrivers:
+  - name: Compute (vCPU Hours)
+    description: >-
+      Primary cost driver for Authzed Cloud and Dedicated tiers. Billed hourly
+      per vCPU allocated to the SpiceDB cluster. Dedicated plans use reserved
+      vCPU pricing; Cloud plans auto-scale.
+    unit: vCPU-hour
+    pricingModel: usage-based
+    tier: Cloud / Dedicated Cloud
+
+  - name: Storage (Relationship Data)
+    description: >-
+      Relationship tuples and schema definitions stored in the underlying
+      datastore (CockroachDB or equivalent). Storage costs scale with the size
+      of the authorization graph.
+    unit: GB-month
+    pricingModel: usage-based
+    tier: Cloud / Dedicated Cloud
+
+  - name: API Calls (Permission Checks)
+    description: >-
+      CheckPermission, LookupResources, and WriteRelationships calls contribute
+      to compute utilization. High QPS workloads should be sized for reserved
+      vCPU capacity on Dedicated plans.
+    unit: requests
+    pricingModel: included in compute
+
+  - name: Support Tier
+    description: >-
+      Standard support is included in Cloud. Premium and Enterprise support
+      add Slack access, dedicated team, and SLA guarantees at additional cost.
+    unit: monthly subscription
+    pricingModel: fixed add-on
+    options:
+      - Standard (included)
+      - Premium (custom pricing)
+      - Enterprise (custom pricing)
+
+  - name: Self-Hosted License
+    description: >-
+      Annual license fee for running SpiceDB Enterprise on-premises or in a
+      private cloud. Licensed per region and per vCPU.
+    unit: vCPU per region per year
+    pricingModel: annual subscription
+
+optimization:
+  - strategy: Use Open Source for Development
+    description: >-
+      Run self-hosted SpiceDB (Apache-2.0) in development and staging
+      environments to avoid Cloud costs during non-production workloads.
+    savingsPotential: high
+
+  - strategy: Right-Size Reserved vCPU
+    description: >-
+      For Dedicated Cloud, analyze QPS requirements before committing to
+      reserved vCPU allocation. Use load-testing tooling
+      (authzed.com/docs/spicedb/ops/load-testing) to profile actual demand.
+    savingsPotential: high
+
+  - strategy: Leverage Starter Credits
+    description: >-
+      New organizations can apply for $700 in Authzed Cloud credits to
+      evaluate the platform before incurring billed charges.
+    savingsPotential: medium
+    url: https://authzed.com/blog/try-out-authzed-cloud-get-credits
+
+  - strategy: Cache Permission Checks
+    description: >-
+      Implement client-side caching for CheckPermission results where
+      consistency requirements allow (e.g., using minimize_latency consistency
+      mode). Reduces API call volume and associated compute costs.
+    savingsPotential: medium
+
+  - strategy: Batch WriteRelationships
+    description: >-
+      Consolidate relationship writes into batches up to the 1000-update
+      per-call limit to reduce per-call overhead and improve throughput
+      efficiency.
+    savingsPotential: low-medium
+
+  - strategy: Monitor via Observability Stack
+    description: >-
+      Use built-in Prometheus metrics and OpenTelemetry tracing to identify
+      hot paths, over-provisioned capacity, and inefficient permission models
+      that inflate compute usage.
+    savingsPotential: medium
+
+billing:
+  model: hourly metered, monthly invoiced in arrears
+  invoiceCycle: monthly
+  paymentTerms: arrears
+  currencySupported:
+    - USD
+  starterCredit:
+    amount: 700
+    currency: USD
+    description: Available to new organizations evaluating Authzed Cloud
+    url: https://authzed.com/blog/try-out-authzed-cloud-get-credits
+
+tagging:
+  recommendations:
+    - Tag SpiceDB namespaces by application team for chargeback allocation
+    - Use service account naming conventions to map API token usage to teams
+    - Track vCPU allocation per region for multi-region deployments
+
+complianceCosts:
+  - SOC2 Type 2 certification included in Cloud and Dedicated tiers
+  - Penetration testing results available on Dedicated and Enterprise tiers
+  - Encryption at rest and in transit included across all paid tiers

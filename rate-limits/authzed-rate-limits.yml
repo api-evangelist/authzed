@@ -1,0 +1,83 @@
+name: Authzed Rate Limits
+description: >-
+  SpiceDB and Authzed Cloud enforce per-call payload limits on write and read
+  operations rather than global requests-per-second caps. These limits are
+  configurable in self-hosted deployments and applied as platform defaults on
+  Authzed Cloud. For throughput at scale, Authzed Dedicated supports up to
+  1 million QPS with CockroachDB-backed infrastructure.
+version: '0.1'
+url: https://authzed.com/docs/spicedb/ops/performance
+
+limits:
+  - operation: WriteRelationships
+    description: >-
+      Maximum number of relationship updates (writes or deletes) allowed in a
+      single WriteRelationships RPC call.
+    defaultLimit: 1000
+    unit: updates per call
+    configurableParameter: --write-relationships-max-updates-per-call
+    selfHostedConfigurable: true
+
+  - operation: LookupResources
+    description: >-
+      Maximum number of resources returned in a single LookupResources call.
+      Protects against unbounded streaming responses.
+    defaultLimit: 1000
+    unit: resources per call
+    configurableParameter: --max-lookup-resources-limit
+    selfHostedConfigurable: true
+
+  - operation: ReadRelationships
+    description: >-
+      Maximum number of relationships returned in a single ReadRelationships
+      streaming call.
+    defaultLimit: 1000
+    unit: relationships per call
+    configurableParameter: --max-read-relationships-limit
+    selfHostedConfigurable: true
+
+  - operation: DeleteRelationships
+    description: >-
+      Maximum number of relationships that can be deleted in a single
+      DeleteRelationships call.
+    defaultLimit: 1000
+    unit: relationships per call
+    configurableParameter: --max-delete-relationships-limit
+    selfHostedConfigurable: true
+
+  - operation: CheckBulkPermissions
+    description: >-
+      Maximum number of concurrent individual permission checks that can be
+      executed in a single CheckBulkPermissions call.
+    defaultLimit: 50
+    unit: concurrent checks per call
+    configurableParameter: --max-check-bulk-concurrency
+    selfHostedConfigurable: true
+
+throughput:
+  - tier: Cloud
+    description: Auto-scaling managed infrastructure
+    maxQPS: auto-scaled
+    notes: Scales automatically with usage; no manual capacity management required
+
+  - tier: Dedicated Cloud
+    description: >-
+      Reserved vCPU capacity with CockroachDB backend enabling high-throughput
+      authorization at Google scale.
+    maxQPS: 1000000
+    unit: checks per second
+    notes: >-
+      Demonstrated in production at 1M QPS. Achievable with sufficient reserved
+      vCPU allocation and CockroachDB global deployment.
+
+notes:
+  - >-
+    Authzed Cloud does not publish explicit per-second rate limits for API
+    tokens. Access control is enforced via Restricted API Access policies using
+    role-based service accounts with optional CEL expressions.
+  - >-
+    For self-hosted SpiceDB all limits above are configurable via server startup
+    parameters, allowing tuning for specific workload requirements.
+  - >-
+    Contact Authzed for Dedicated Cloud quotas and reserved capacity options at
+    authzed.com/pricing.

@@ -1,0 +1,108 @@
+name: Authzed Plans and Pricing
+description: >-
+  Authzed offers four deployment tiers ranging from a free self-hosted open
+  source option to a fully managed dedicated cloud. Cloud and Dedicated plans
+  use hourly metered billing with monthly invoicing in arrears. Self-Hosted
+  plans require annual licensing by region and vCPU count.
+version: '0.1'
+url: https://authzed.com/pricing
+plans:
+  - name: Open Source
+    description: >-
+      Free self-hosted SpiceDB deployment under the Apache-2.0 license.
+      Community support via Discord and GitHub. Full access to all SpiceDB
+      API capabilities with self-managed infrastructure.
+    price: 0
+    currency: USD
+    billingCycle: free
+    features:
+      - Full SpiceDB gRPC and HTTP/JSON API access
+      - All permission check, schema, and relationship operations
+      - Apache-2.0 open source license
+      - Community support via Discord and GitHub
+      - Pluggable storage backends (PostgreSQL, MySQL, CockroachDB, Spanner, in-memory)
+      - OpenTelemetry tracing and Prometheus metrics
+    support: community
+
+  - name: Cloud
+    description: >-
+      Fully managed SpiceDB on Authzed Cloud with pay-as-you-go hourly
+      billing. Includes standard support, SOC2 Type 2 compliance, automatic
+      updates, and encryption. Suitable for startups and growing teams.
+    price: 2
+    currency: USD
+    billingCycle: hourly
+    unit: per hour (resource-based)
+    minimumCredit: 700
+    features:
+      - Managed SpiceDB infrastructure
+      - Pay-as-you-grow hourly metered billing
+      - Standard support (email)
+      - SOC2 Type 2 compliance
+      - Automatic updates and patches
+      - Encryption at rest and in transit
+      - Observability tooling
+      - Restricted API Access (token-based role policies)
+      - Multi-region option
+      - $700 starter credit available
+    support: standard
+
+  - name: Dedicated Cloud
+    description: >-
+      Private Authzed Cloud infrastructure with reserved vCPU capacity,
+      multi-region deployment, and premium support. Tailored for organizations
+      requiring isolation, high throughput (up to 1M QPS), and dedicated
+      account management.
+    price: custom
+    currency: USD
+    billingCycle: hourly
+    unit: per reserved vCPU per hour
+    features:
+      - Dedicated private infrastructure
+      - Reserved vCPU capacity pricing
+      - Multi-region deployment
+      - Premium support (Slack, dedicated team, 12-hour P1 SLA)
+      - 4 weekly onboarding calls
+      - Penetration testing results available
+      - Up to 1M+ QPS authorization throughput
+      - CockroachDB-backed global deployment
+    support: premium
+
+  - name: Self-Hosted Enterprise
+    description: >-
+      Annual subscription licensing for running SpiceDB on your own
+      infrastructure with enterprise support, dedicated account team, and
+      SLA guarantees. Licensed per region and vCPU.
+    price: custom
+    currency: USD
+    billingCycle: annual
+    unit: per region per vCPU
+    features:
+      - On-premises or private cloud deployment
+      - Annual license per region and vCPU
+      - Enterprise support (Slack, dedicated account team, 1-hour P1 SLA)
+      - 8 weekly onboarding calls
+      - Dedicated account manager
+      - Custom integrations and professional services
+    support: enterprise
+
+supportTiers:
+  - name: Standard
+    channels:
+      - email
+    p1ResponseSLA: null
+    onboardingCalls: 0
+  - name: Premium
+    channels:
+      - email
+      - slack
+    dedicatedTeam: true
+    p1ResponseSLA: 12 hours
+    onboardingCalls: 4 weekly
+  - name: Enterprise
+    channels:
+      - email
+      - slack
+    dedicatedTeam: true
+    p1ResponseSLA: 1 hour
+    onboardingCalls: 8 weekly

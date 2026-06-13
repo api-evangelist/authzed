@@ -1,0 +1,109 @@
+aid: authzed
+name: Authzed
+description: >-
+  Authzed is a SpiceDB-based authorization platform providing REST and gRPC APIs
+  for Zanzibar-style relationship-based access control. It enables developers to
+  manage schemas, write relationship tuples, and execute fine-grained permission
+  checks at scale. Authzed Cloud delivers hosted SpiceDB infrastructure with
+  pay-as-you-grow billing, processing tens of billions of permission checks daily
+  across enterprise and AI-native applications.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/authzed/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Authorization
+  - Access Control
+  - Permissions
+  - Zanzibar
+  - SpiceDB
+  - gRPC
+  - REST
+  - Relationship-Based Access Control
+  - ReBAC
+  - Fine-Grained Authorization
+  - Identity
+  - Security
+
+apis:
+  - name: SpiceDB Permissions API
+    description: >-
+      The core permissions API for SpiceDB, providing gRPC and HTTP/JSON
+      interfaces for writing schemas, managing relationship tuples, and executing
+      permission checks using a Zanzibar-inspired graph model. Supports
+      CheckPermission, LookupResources, LookupSubjects, WriteRelationships,
+      ReadRelationships, DeleteRelationships, WriteSchema, and ReadSchema
+      operations.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://authzed.com/docs/spicedb/getting-started/discovering-spicedb
+    baseURL: https://grpc.authzed.com
+    tags:
+      - Permissions
+      - Authorization
+      - gRPC
+      - REST
+      - Relationships
+      - Schema
+    properties:
+      - type: Documentation
+        url: https://authzed.com/docs/spicedb/getting-started/discovering-spicedb
+      - type: GrpcDocumentation
+        url: https://buf.build/authzed/api/docs/main:authzed.api.v1
+      - type: GitHubRepository
+        url: https://github.com/authzed/api
+      - type: SDKs
+        url: https://authzed.com/docs/spicedb/getting-started/client-libraries
+      - type: OpenAPI
+        url: https://authzed.com/docs/spicedb/getting-started/client-libraries
+
+  - name: Authzed Cloud API
+    description: >-
+      The managed cloud offering of SpiceDB by Authzed, providing production-ready
+      authorization infrastructure with hourly metered billing. Includes all
+      SpiceDB API capabilities plus Authzed-specific features such as Restricted
+      API Access with role-based token policies, service account management,
+      and multi-region deployment.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://authzed.com/products/authzed-cloud
+    baseURL: https://app.authzed.com
+    tags:
+      - Cloud
+      - Managed
+      - Authorization
+      - Multi-Region
+      - Enterprise
+    properties:
+      - type: Documentation
+        url: https://authzed.com/docs
+      - type: RestrictedAccessDocs
+        url: https://authzed.com/docs/authzed/concepts/restricted-api-access
+
+common:
+  - type: Website
+    url: https://authzed.com
+  - type: Documentation
+    url: https://authzed.com/docs
+  - type: GitHubOrg
+    url: https://github.com/authzed
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/authzed
+  - type: Blog
+    url: https://authzed.com/blog
+  - type: Pricing
+    url: https://authzed.com/pricing
+  - type: StatusPage
+    url: https://status.authzed.com/
+  - type: X
+    url: https://twitter.com/authzed
+  - type: Plans
+    url: plans/authzed-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/authzed-rate-limits.yml
+  - type: FinOps
+    url: finops/authzed-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
