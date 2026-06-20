@@ -8,7 +8,7 @@ description: >-
   pay-as-you-grow billing, processing tens of billions of permission checks daily
   across enterprise and AI-native applications.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/authzed/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -36,7 +36,7 @@ apis:
       CheckPermission, LookupResources, LookupSubjects, WriteRelationships,
       ReadRelationships, DeleteRelationships, WriteSchema, and ReadSchema
       operations.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://authzed.com/docs/spicedb/getting-started/discovering-spicedb
     baseURL: https://grpc.authzed.com
     tags:
@@ -65,7 +65,7 @@ apis:
       SpiceDB API capabilities plus Authzed-specific features such as Restricted
       API Access with role-based token policies, service account management,
       and multi-region deployment.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://authzed.com/products/authzed-cloud
     baseURL: https://app.authzed.com
     tags:
