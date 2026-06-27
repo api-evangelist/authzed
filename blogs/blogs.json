@@ -1,17 +1,14 @@
 {
-  "url": "https://authzed.com/blog",
-  "last_fetched": null,
-  "posts": [],
   "repo": "authzed",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/authzed",
-      "feed_url": "https://www.linkedin.com/company/authzed",
-      "title": "",
+      "source": "https://authzed.com/blog",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:26:19Z",
+  "post_count": 25,
+  "agent_pulled": "2026-06-27"
 }
