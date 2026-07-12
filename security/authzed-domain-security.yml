@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: authzed.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  1 07:09:15 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: grpc.authzed.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 17:42:15 2026 GMT
+  hsts: null
+- host: app.authzed.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 10 05:46:25 2026 GMT
+  hsts: null
+domains:
+- domain: authzed.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
