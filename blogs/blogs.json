@@ -2,13 +2,11 @@
   "repo": "authzed",
   "feeds": [
     {
-      "source": "https://authzed.com/blog",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/authzed",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:26:19Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 25,
-  "agent_pulled": "2026-06-27"
+  "agent_pulled": "2026-07-04"
 }
