@@ -81,6 +81,8 @@ apis:
         url: https://authzed.com/docs/authzed/concepts/restricted-api-access
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/authzed-agentic-access.yml
   - type: TrustCenter
     url: security/authzed-trust-center.yml
   - type: DomainSecurity
