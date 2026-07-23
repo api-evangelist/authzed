@@ -1,0 +1,714 @@
+openapi: 3.0.3
+info:
+  title: Authzed SpiceDB Permissions Experimental Relationships API
+  description: SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.
+  version: '1.0'
+  contact:
+    name: Authzed, Inc.
+    url: https://github.com/authzed/api
+    email: support@authzed.com
+  license:
+    name: Apache 2.0 License
+    url: https://github.com/authzed/api/blob/main/LICENSE
+servers:
+- url: https://grpc.authzed.com
+  description: Authzed Cloud primary endpoint
+- url: https://app.authzed.com
+  description: Authzed Cloud management endpoint
+security:
+- BearerAuth: []
+tags:
+- name: Relationships
+  description: Read, write, delete, and bulk import/export relationship tuples
+paths:
+  /v1/relationships/delete:
+    post:
+      operationId: PermissionsService_DeleteRelationships
+      summary: 'DeleteRelationships atomically bulk deletes all relationships matching the
+
+        provided filter. If no relationships match, none will be deleted and the
+
+        operation will succeed. An optional set of preconditions can be provided that must
+
+        be satisfied for the operation to commit.'
+      tags:
+      - Relationships
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRelationshipsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/relationships/exportbulk:
+    post:
+      operationId: PermissionsService_ExportBulkRelationships
+      summary: 'ExportBulkRelationships is the fastest path available to exporting
+
+        relationships from the server. It is resumable, and will return results
+
+        in an order determined by the server.'
+      tags:
+      - Relationships
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportBulkRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.(streaming responses)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ExportBulkRelationshipsResponse'
+                  error:
+                    $ref: '#/components/schemas/Status'
+                title: Stream result of ExportBulkRelationshipsResponse
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/relationships/importbulk:
+    post:
+      operationId: PermissionsService_ImportBulkRelationships
+      summary: 'ImportBulkRelationships is a faster path to writing a large number of
+
+        relationships at once. It is both batched and streaming. For maximum
+
+        performance, the caller should attempt to write relationships in as close
+
+        to relationship sort order as possible: (resource.object_type,
+
+        resource.object_id, relation, subject.object.object_type,
+
+        subject.object.object_id, subject.optional_relation). All relationships
+
+        written are done so under a single transaction.'
+      tags:
+      - Relationships
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportBulkRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBulkRelationshipsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/relationships/read:
+    post:
+      operationId: PermissionsService_ReadRelationships
+      summary: 'ReadRelationships reads a set of the relationships matching one or more
+
+        filters.'
+      tags:
+      - Relationships
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.(streaming responses)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ReadRelationshipsResponse'
+                  error:
+                    $ref: '#/components/schemas/Status'
+                title: Stream result of ReadRelationshipsResponse
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/relationships/write:
+    post:
+      operationId: PermissionsService_WriteRelationships
+      summary: 'WriteRelationships atomically writes and/or deletes a set of specified
+
+        relationships. An optional set of preconditions can be provided that must
+
+        be satisfied for the operation to commit.'
+      tags:
+      - Relationships
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteRelationshipsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+components:
+  schemas:
+    RelationshipUpdate:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/RelationshipUpdate.Operation'
+        relationship:
+          $ref: '#/components/schemas/Relationship'
+      description: 'RelationshipUpdate is used for mutating a single relationship within the
+
+        service.
+
+
+        CREATE will create the relationship only if it doesn''t exist, and error
+
+        otherwise.
+
+
+        TOUCH will upsert the relationship, and will not error if it
+
+        already exists.
+
+
+        DELETE will delete the relationship. If the relationship does not exist,
+
+        this operation will no-op.'
+    ImportBulkRelationshipsResponse:
+      type: object
+      properties:
+        numLoaded:
+          type: string
+          format: uint64
+      description: 'ImportBulkRelationshipsResponse is returned on successful completion of the
+
+        bulk load stream, and contains the total number of relationships loaded.'
+    Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    ReadRelationshipsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        relationshipFilter:
+          $ref: '#/components/schemas/RelationshipFilter'
+          description: 'relationship_filter defines the filter to be applied to the relationships
+
+            to be returned.'
+        optionalLimit:
+          type: integer
+          format: int64
+          description: 'optional_limit, if non-zero, specifies the limit on the number of relationships to return
+
+            before the stream is closed on the server side. By default, the stream will continue
+
+            resolving relationships until exhausted or the stream is closed due to the client or a
+
+            network issue.'
+        optionalCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+          description: 'optional_cursor, if specified, indicates the cursor after which results should resume being returned.
+
+            The cursor can be found on the ReadRelationshipsResponse object.'
+      description: 'ReadRelationshipsRequest specifies one or more filters used to read matching
+
+        relationships within the system.'
+    RelationshipFilter:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          description: 'resource_type is the *optional* resource type of the relationship.
+
+            NOTE: It is not prefixed with "optional_" for legacy compatibility.'
+        optionalResourceId:
+          type: string
+          description: 'optional_resource_id is the *optional* resource ID of the relationship.
+
+            If specified, optional_resource_id_prefix cannot be specified.'
+        optionalResourceIdPrefix:
+          type: string
+          description: 'optional_resource_id_prefix is the *optional* prefix for the resource ID of the relationship.
+
+            If specified, optional_resource_id cannot be specified.'
+        optionalRelation:
+          type: string
+          description: relation is the *optional* relation of the relationship.
+        optionalSubjectFilter:
+          $ref: '#/components/schemas/SubjectFilter'
+          description: optional_subject_filter is the optional filter for the subjects of the relationships.
+      description: 'RelationshipFilter is a collection of filters which when applied to a
+
+        relationship will return relationships that have exactly matching fields.
+
+
+        All fields are optional and if left unspecified will not filter relationships,
+
+        but at least one field must be specified.
+
+
+        NOTE: The performance of the API will be affected by the selection of fields
+
+        on which to filter. If a field is not indexed, the performance of the API
+
+        can be significantly slower.'
+    ReadRelationshipsResponse:
+      type: object
+      properties:
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the relationship was found.
+        relationship:
+          $ref: '#/components/schemas/Relationship'
+          description: relationship is the found relationship.
+        afterResultCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+          description: 'after_result_cursor holds a cursor that can be used to resume the ReadRelationships stream after this
+
+            result.'
+      description: 'ReadRelationshipsResponse contains a Relationship found that matches the
+
+        specified relationship filter(s). A instance of this response message will
+
+        be streamed to the client for each relationship found.'
+    Relationship:
+      type: object
+      properties:
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+          title: resource is the resource to which the subject is related, in some manner
+        relation:
+          type: string
+          description: relation is how the resource and subject are related.
+        subject:
+          $ref: '#/components/schemas/SubjectReference'
+          description: subject is the subject to which the resource is related, in some manner.
+        optionalCaveat:
+          $ref: '#/components/schemas/ContextualizedCaveat'
+          title: optional_caveat is a reference to a the caveat that must be enforced over the relationship
+        optionalExpiresAt:
+          type: string
+          format: date-time
+          description: optional_expires_at is the time at which the relationship expires, if any.
+      description: 'Relationship specifies how a resource relates to a subject. Relationships
+
+        form the data for the graph over which all permissions questions are
+
+        answered.'
+    ZedToken:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'ZedToken represents a point in time, or a "revision" in SpiceDB.
+
+        It is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)
+
+        and can also be used to start watching for changes from a specific point in time.
+
+
+        See the authzed.api.v1.Consistency message for more information.'
+    DeletionProgress:
+      type: string
+      enum:
+      - DELETION_PROGRESS_UNSPECIFIED
+      - DELETION_PROGRESS_COMPLETE
+      - DELETION_PROGRESS_PARTIAL
+      default: DELETION_PROGRESS_UNSPECIFIED
+      description: " - DELETION_PROGRESS_COMPLETE: DELETION_PROGRESS_COMPLETE indicates that all remaining relationships matching the filter\nwere deleted. Will be returned even if no relationships were deleted.\n - DELETION_PROGRESS_PARTIAL: DELETION_PROGRESS_PARTIAL indicates that a subset of the relationships matching the filter\nwere deleted. Only returned if optional_allow_partial_deletions was true, an optional_limit was\nspecified, and there existed more relationships matching the filter than optional_limit would allow.\nOnce all remaining relationships have been deleted, DELETION_PROGRESS_COMPLETE will be returned."
+    ImportBulkRelationshipsRequest:
+      type: object
+      properties:
+        relationships:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Relationship'
+      description: 'ImportBulkRelationshipsRequest represents one batch of the streaming
+
+        ImportBulkRelationships API. The maximum size is only limited by the backing
+
+        datastore, and optimal size should be determined by the calling client
+
+        experimentally. When ImportBulk is invoked and receives its first request message,
+
+        a transaction is opened to import the relationships. All requests sent to the same
+
+        invocation are executed under this single transaction. If a relationship already
+
+        exists within the datastore, the entire transaction will fail with an error.'
+    v1.Cursor:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'Cursor is used to provide resumption of listing between calls to APIs
+
+        such as LookupResources.'
+    Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'The status code, which should be an enum value of
+
+            [google.rpc.Code][google.rpc.Code].'
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Any'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    ObjectReference:
+      type: object
+      properties:
+        objectType:
+          type: string
+        objectId:
+          type: string
+      description: ObjectReference is used to refer to a specific object in the system.
+    ContextualizedCaveat:
+      type: object
+      properties:
+        caveatName:
+          type: string
+          title: caveat_name is the name of the caveat expression to use, as defined in the schema
+        context:
+          type: object
+          title: context consists of any named values that are defined at write time for the caveat expression
+      description: 'ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
+
+        The context consists of key-value pairs that will be injected at evaluation time.
+
+        The keys must match the arguments defined on the caveat in the schema.'
+    ExportBulkRelationshipsResponse:
+      type: object
+      properties:
+        afterResultCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+        relationships:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Relationship'
+      description: 'ExportBulkRelationshipsResponse is one page in a stream of relationship
+
+        groups that meet the criteria specified by the originating request. The
+
+        server will continue to stream back relationship groups as quickly as it can
+
+        until all relationships have been transmitted back.'
+    DeleteRelationshipsRequest:
+      type: object
+      properties:
+        relationshipFilter:
+          $ref: '#/components/schemas/RelationshipFilter'
+        optionalPreconditions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Precondition'
+          title: To be bounded by configuration
+        optionalLimit:
+          type: integer
+          format: int64
+          description: 'optional_limit, if non-zero, specifies the limit on the number of relationships to be deleted.
+
+            If there are more matching relationships found to be deleted than the limit specified here,
+
+            the deletion call will fail with an error to prevent partial deletion. If partial deletion
+
+            is needed, specify below that partial deletion is allowed. Partial deletions can be used
+
+            in a loop to delete large amounts of relationships in a *non-transactional* manner.'
+        optionalAllowPartialDeletions:
+          type: boolean
+          description: 'optional_allow_partial_deletions, if true and a limit is specified, will delete matching found
+
+            relationships up to the count specified in optional_limit, and no more.'
+        optionalTransactionMetadata:
+          type: object
+          description: 'optional_transaction_metadata is an optional field that can be used to store metadata about the transaction.
+
+            If specified, this metadata will be supplied in the WatchResponse for the deletions associated with
+
+            this transaction.'
+      description: 'DeleteRelationshipsRequest specifies which Relationships should be deleted,
+
+        requesting the delete of *ALL* relationships that match the specified
+
+        filters. If the optional_preconditions parameter is included, all of the
+
+        specified preconditions must also be satisfied before the delete will be
+
+        executed.'
+    WriteRelationshipsResponse:
+      type: object
+      properties:
+        writtenAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: written_at is the revision at which the relationships were written or deleted.
+    Precondition.Operation:
+      type: string
+      enum:
+      - OPERATION_UNSPECIFIED
+      - OPERATION_MUST_NOT_MATCH
+      - OPERATION_MUST_MATCH
+      default: OPERATION_UNSPECIFIED
+    SubjectReference:
+      type: object
+      properties:
+        object:
+          $ref: '#/components/schemas/ObjectReference'
+        optionalRelation:
+          type: string
+      title: 'SubjectReference is used for referring to the subject portion of a
+
+        Relationship. The relation component is optional and is used for defining a
+
+        sub-relation on the subject, e.g. group:123#members'
+    Precondition:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/Precondition.Operation'
+        filter:
+          $ref: '#/components/schemas/RelationshipFilter'
+      description: 'Precondition specifies how and the existence or absence of certain
+
+        relationships as expressed through the accompanying filter should affect
+
+        whether or not the operation proceeds.
+
+
+        MUST_NOT_MATCH will fail the parent request if any relationships match the
+
+        relationships filter.
+
+        MUST_MATCH will fail the parent request if there are no
+
+        relationships that match the filter.'
+    DeleteRelationshipsResponse:
+      type: object
+      properties:
+        deletedAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: deleted_at is the revision at which the relationships were deleted.
+        deletionProgress:
+          $ref: '#/components/schemas/DeletionProgress'
+          description: deletion_progress is an enumeration of the possible outcomes that occurred when attempting to delete the specified relationships.
+        relationshipsDeletedCount:
+          type: string
+          format: uint64
+          description: relationships_deleted_count is the number of relationships that were deleted.
+    WriteRelationshipsRequest:
+      type: object
+      properties:
+        updates:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/RelationshipUpdate'
+        optionalPreconditions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Precondition'
+          title: To be bounded by configuration
+        optionalTransactionMetadata:
+          type: object
+          description: 'optional_transaction_metadata is an optional field that can be used to store metadata about the transaction.
+
+            If specified, this metadata will be supplied in the WatchResponse for the updates associated with this
+
+            transaction.'
+      description: 'WriteRelationshipsRequest contains a list of Relationship mutations that
+
+        should be applied to the service. If the optional_preconditions parameter
+
+        is included, all of the specified preconditions must also be satisfied before
+
+        the write will be committed. All updates will be applied transactionally,
+
+        and if any preconditions fail, the entire transaction will be reverted.'
+    RelationshipUpdate.Operation:
+      type: string
+      enum:
+      - OPERATION_UNSPECIFIED
+      - OPERATION_CREATE
+      - OPERATION_TOUCH
+      - OPERATION_DELETE
+      default: OPERATION_UNSPECIFIED
+    RelationFilter:
+      type: object
+      properties:
+        relation:
+          type: string
+    SubjectFilter:
+      type: object
+      properties:
+        subjectType:
+          type: string
+        optionalSubjectId:
+          type: string
+        optionalRelation:
+          $ref: '#/components/schemas/RelationFilter'
+      description: 'SubjectFilter specifies a filter on the subject of a relationship.
+
+
+        subject_type is required and all other fields are optional, and will not
+
+        impose any additional requirements if left unspecified.'
+    ExportBulkRelationshipsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        optionalLimit:
+          type: integer
+          format: int64
+          description: 'optional_limit, if non-zero, specifies the limit on the number of
+
+            relationships the server can return in one page. By default, the server
+
+            will pick a page size, and the server is free to choose a smaller size
+
+            at will.'
+        optionalCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+          description: 'optional_cursor, if specified, indicates the cursor after which results
+
+            should resume being returned. The cursor can be found on the
+
+            BulkExportRelationshipsResponse object.'
+        optionalRelationshipFilter:
+          $ref: '#/components/schemas/RelationshipFilter'
+          description: 'optional_relationship_filter, if specified, indicates the
+
+            filter to apply to each relationship to be exported.'
+      description: 'ExportBulkRelationshipsRequest represents a resumable request for
+
+        all relationships from the server.'
+    Consistency:
+      type: object
+      properties:
+        minimizeLatency:
+          type: boolean
+          description: 'minimize_latency indicates that the latency for the call should be
+
+            minimized by having the system select the fastest snapshot available.'
+        atLeastAsFresh:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_least_as_fresh indicates that all data used in the API call must be
+
+            *at least as fresh* as that found in the ZedToken; more recent data might
+
+            be used if available or faster.'
+        atExactSnapshot:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_exact_snapshot indicates that all data used in the API call must be
+
+            *at the given* snapshot in time; if the snapshot is no longer available,
+
+            an error will be returned to the caller.'
+        fullyConsistent:
+          type: boolean
+          description: 'fully_consistent indicates that all data used in the API call *must* be
+
+            at the most recent snapshot found.
+
+
+            NOTE: using this method can be *quite slow*, so unless there is a need to
+
+            do so, it is recommended to use `at_least_as_fresh` with a stored
+
+            ZedToken.'
+      description: 'Consistency will define how a request is handled by the backend.
+
+        By defining a consistency requirement, and a token at which those
+
+        requirements should be applied, where applicable.'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'SpiceDB preshared-key. Pass as Authorization: Bearer <preshared-key>'

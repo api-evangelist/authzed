@@ -1,0 +1,624 @@
+openapi: 3.0.3
+info:
+  title: Authzed SpiceDB Permissions Experimental Schema API
+  description: SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.
+  version: '1.0'
+  contact:
+    name: Authzed, Inc.
+    url: https://github.com/authzed/api
+    email: support@authzed.com
+  license:
+    name: Apache 2.0 License
+    url: https://github.com/authzed/api/blob/main/LICENSE
+servers:
+- url: https://grpc.authzed.com
+  description: Authzed Cloud primary endpoint
+- url: https://app.authzed.com
+  description: Authzed Cloud management endpoint
+security:
+- BearerAuth: []
+tags:
+- name: Schema
+  description: Manage SpiceDB schema definitions, diff schemas, and reflect schema metadata
+paths:
+  /v1/schema/diffschema:
+    post:
+      operationId: SchemaService_DiffSchema
+      summary: 'DiffSchema returns the difference between the specified schema and the current
+
+        schema stored in SpiceDB.'
+      tags:
+      - Schema
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiffSchemaRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiffSchemaResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/schema/permissions/computable:
+    post:
+      operationId: SchemaService_ComputablePermissions
+      summary: 'ComputablePermissions returns the set of permissions that compute based off a relation
+
+        in the current schema. For example, if the schema has a relation `viewer` and a permission
+
+        `view` defined as `permission view = viewer + editor`, then the
+
+        computable permissions for the relation `viewer` will include `view`.'
+      tags:
+      - Schema
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComputablePermissionsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputablePermissionsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/schema/permissions/dependent:
+    post:
+      operationId: SchemaService_DependentRelations
+      summary: 'DependentRelations returns the set of relations and permissions that used
+
+        to compute a permission, recursively, in the current schema. It is the
+
+        inverse of the ComputablePermissions API.'
+      tags:
+      - Schema
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DependentRelationsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependentRelationsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/schema/read:
+    post:
+      operationId: SchemaService_ReadSchema
+      summary: Read returns the current Object Definitions for a Permissions System.
+      tags:
+      - Schema
+      security:
+      - BearerAuth: []
+      description: 'Errors include:
+
+        - INVALID_ARGUMENT: a provided value has failed to semantically validate
+
+        - NOT_FOUND: no schema has been defined'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadSchemaRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadSchemaResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/schema/reflectschema:
+    post:
+      operationId: SchemaService_ReflectSchema
+      summary: 'ReflectSchema reflects the current schema stored in SpiceDB, returning a structural
+
+        form of the schema for use by client tooling.'
+      tags:
+      - Schema
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReflectSchemaRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReflectSchemaResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/schema/write:
+    post:
+      operationId: SchemaService_WriteSchema
+      summary: Write overwrites the current Object Definitions for a Permissions System.
+      tags:
+      - Schema
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteSchemaRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteSchemaResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+components:
+  schemas:
+    DependentRelationsResponse:
+      type: object
+      properties:
+        relations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionRelationReference'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    DiffSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        comparisonSchema:
+          type: string
+    ReflectionCaveatParameter:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          title: 'type is the type of the parameter. Will be a string representing the
+
+            type, e.g. `int` or `list<string>`'
+        parentCaveatName:
+          type: string
+      description: ReflectionCaveatParameter is the representation of a parameter in a caveat.
+    Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    ReflectSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        optionalFilters:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionSchemaFilter'
+          title: 'optional_filters defines optional filters that are applied in
+
+            an OR fashion to the schema, before being returned'
+    ComputablePermissionsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        optionalDefinitionNameFilter:
+          type: string
+          description: 'optional_definition_name_match is a prefix that is matched against the definition name(s)
+
+            for the permissions returned.
+
+            If not specified, will be ignored.'
+    ReflectionDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the definition. Will include
+
+            delimiter characters.'
+        relations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionRelation'
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionPermission'
+      description: ReflectionDefinition is the representation of a definition in the schema.
+    WriteSchemaRequest:
+      type: object
+      properties:
+        schema:
+          type: string
+          description: 'The Schema containing one or more Object Definitions that will be written
+
+            to the Permissions System.
+
+
+            4MiB'
+      description: 'WriteSchemaRequest is the required data used to "upsert" the Schema of a
+
+        Permissions System.'
+    ZedToken:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'ZedToken represents a point in time, or a "revision" in SpiceDB.
+
+        It is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)
+
+        and can also be used to start watching for changes from a specific point in time.
+
+
+        See the authzed.api.v1.Consistency message for more information.'
+    ReflectionRelationSubjectTypeChange:
+      type: object
+      properties:
+        relation:
+          $ref: '#/components/schemas/ReflectionRelation'
+        changedSubjectType:
+          $ref: '#/components/schemas/ReflectionTypeReference'
+    Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'The status code, which should be an enum value of
+
+            [google.rpc.Code][google.rpc.Code].'
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Any'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    ReflectionRelationReference:
+      type: object
+      properties:
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        isPermission:
+          type: boolean
+      description: ReflectionRelationReference is a reference to a relation or permission in the schema.
+    DependentRelationsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
+          type: string
+        permissionName:
+          type: string
+    ReadSchemaResponse:
+      type: object
+      properties:
+        schemaText:
+          type: string
+          title: schema_text is the textual form of the current schema in the system
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+      description: 'ReadSchemaResponse is the resulting data after having read the Object
+
+        Definitions from a Schema.'
+    ReadSchemaRequest:
+      type: object
+      description: ReadSchemaRequest returns the schema from the database.
+    ReflectionSchemaDiff:
+      type: object
+      properties:
+        definitionAdded:
+          $ref: '#/components/schemas/ReflectionDefinition'
+        definitionRemoved:
+          $ref: '#/components/schemas/ReflectionDefinition'
+        definitionDocCommentChanged:
+          $ref: '#/components/schemas/ReflectionDefinition'
+        relationAdded:
+          $ref: '#/components/schemas/ReflectionRelation'
+        relationRemoved:
+          $ref: '#/components/schemas/ReflectionRelation'
+        relationDocCommentChanged:
+          $ref: '#/components/schemas/ReflectionRelation'
+        relationSubjectTypeAdded:
+          $ref: '#/components/schemas/ReflectionRelationSubjectTypeChange'
+        relationSubjectTypeRemoved:
+          $ref: '#/components/schemas/ReflectionRelationSubjectTypeChange'
+        permissionAdded:
+          $ref: '#/components/schemas/ReflectionPermission'
+        permissionRemoved:
+          $ref: '#/components/schemas/ReflectionPermission'
+        permissionDocCommentChanged:
+          $ref: '#/components/schemas/ReflectionPermission'
+        permissionExprChanged:
+          $ref: '#/components/schemas/ReflectionPermission'
+        caveatAdded:
+          $ref: '#/components/schemas/ReflectionCaveat'
+        caveatRemoved:
+          $ref: '#/components/schemas/ReflectionCaveat'
+        caveatDocCommentChanged:
+          $ref: '#/components/schemas/ReflectionCaveat'
+        caveatExprChanged:
+          $ref: '#/components/schemas/ReflectionCaveat'
+        caveatParameterAdded:
+          $ref: '#/components/schemas/ReflectionCaveatParameter'
+        caveatParameterRemoved:
+          $ref: '#/components/schemas/ReflectionCaveatParameter'
+        caveatParameterTypeChanged:
+          $ref: '#/components/schemas/ReflectionCaveatParameterTypeChange'
+      description: ReflectionSchemaDiff is the representation of a diff between two schemas.
+    ReflectionSchemaFilter:
+      type: object
+      properties:
+        optionalDefinitionNameFilter:
+          type: string
+          description: optional_definition_name_filter is a prefix that is matched against the definition name.
+        optionalCaveatNameFilter:
+          type: string
+          description: optional_caveat_name_filter is a prefix that is matched against the caveat name.
+        optionalRelationNameFilter:
+          type: string
+          description: optional_relation_name_filter is a prefix that is matched against the relation name.
+        optionalPermissionNameFilter:
+          type: string
+          description: optional_permission_name_filter is a prefix that is matched against the permission name.
+      description: ReflectionSchemaFilter is a filter that can be applied to the schema on reflection.
+    DiffSchemaResponse:
+      type: object
+      properties:
+        diffs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionSchemaDiff'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    ReflectionCaveatParameterTypeChange:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ReflectionCaveatParameter'
+        previousType:
+          type: string
+    ReflectionRelation:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+        parentDefinitionName:
+          type: string
+        subjectTypes:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionTypeReference'
+      description: ReflectionRelation is the representation of a relation in the schema.
+    ReflectionPermission:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the permission. Will include
+
+            delimiter characters.'
+        parentDefinitionName:
+          type: string
+      description: ReflectionPermission is the representation of a permission in the schema.
+    ReflectSchemaResponse:
+      type: object
+      properties:
+        definitions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionDefinition'
+          description: definitions are the definitions defined in the schema.
+        caveats:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionCaveat'
+          description: caveats are the caveats defined in the schema.
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    ReflectionCaveat:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the caveat. Will include
+
+            delimiter characters.'
+        parameters:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionCaveatParameter'
+        expression:
+          type: string
+      description: ReflectionCaveat is the representation of a caveat in the schema.
+    WriteSchemaResponse:
+      type: object
+      properties:
+        writtenAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: written_at is the ZedToken at which the schema was written.
+      description: 'WriteSchemaResponse is the resulting data after having written a Schema to
+
+        a Permissions System.'
+    ReflectionTypeReference:
+      type: object
+      properties:
+        subjectDefinitionName:
+          type: string
+          description: subject_definition_name is the name of the subject's definition.
+        optionalCaveatName:
+          type: string
+          description: optional_caveat_name is the name of the caveat that is applied to the subject, if any.
+        isTerminalSubject:
+          type: boolean
+          description: is_terminal_subject is true if the subject is terminal, meaning it is referenced directly vs a sub-relation.
+        optionalRelationName:
+          type: string
+          description: optional_relation_name is the name of the relation that is applied to the subject, if any.
+        isPublicWildcard:
+          type: boolean
+          description: is_public_wildcard is true if the subject is a public wildcard.
+      description: ReflectionTypeReference is the representation of a type reference in the schema.
+    Consistency:
+      type: object
+      properties:
+        minimizeLatency:
+          type: boolean
+          description: 'minimize_latency indicates that the latency for the call should be
+
+            minimized by having the system select the fastest snapshot available.'
+        atLeastAsFresh:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_least_as_fresh indicates that all data used in the API call must be
+
+            *at least as fresh* as that found in the ZedToken; more recent data might
+
+            be used if available or faster.'
+        atExactSnapshot:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_exact_snapshot indicates that all data used in the API call must be
+
+            *at the given* snapshot in time; if the snapshot is no longer available,
+
+            an error will be returned to the caller.'
+        fullyConsistent:
+          type: boolean
+          description: 'fully_consistent indicates that all data used in the API call *must* be
+
+            at the most recent snapshot found.
+
+
+            NOTE: using this method can be *quite slow*, so unless there is a need to
+
+            do so, it is recommended to use `at_least_as_fresh` with a stored
+
+            ZedToken.'
+      description: 'Consistency will define how a request is handled by the backend.
+
+        By defining a consistency requirement, and a token at which those
+
+        requirements should be applied, where applicable.'
+    ComputablePermissionsResponse:
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionRelationReference'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'SpiceDB preshared-key. Pass as Authorization: Bearer <preshared-key>'

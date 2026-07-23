@@ -1,0 +1,1001 @@
+openapi: 3.0.3
+info:
+  title: Authzed SpiceDB Permissions Experimental API
+  description: SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.
+  version: '1.0'
+  contact:
+    name: Authzed, Inc.
+    url: https://github.com/authzed/api
+    email: support@authzed.com
+  license:
+    name: Apache 2.0 License
+    url: https://github.com/authzed/api/blob/main/LICENSE
+servers:
+- url: https://grpc.authzed.com
+  description: Authzed Cloud primary endpoint
+- url: https://app.authzed.com
+  description: Authzed Cloud management endpoint
+security:
+- BearerAuth: []
+tags:
+- name: Experimental
+  description: Experimental and preview endpoints subject to change
+paths:
+  /v1/experimental/countrelationships:
+    post:
+      operationId: ExperimentalService_ExperimentalCountRelationships
+      summary: 'EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalCountRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalCountRelationshipsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/diffschema:
+    post:
+      operationId: ExperimentalService_ExperimentalDiffSchema
+      summary: 'DEPRECATED: Promoted to DiffSchema in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalDiffSchemaRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalDiffSchemaResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/permissions/bulkcheckpermission:
+    post:
+      operationId: ExperimentalService_BulkCheckPermission
+      summary: 'DEPRECATED: Promoted to CheckBulkPermission in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkCheckPermissionRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCheckPermissionResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/permissions/computable:
+    post:
+      operationId: ExperimentalService_ExperimentalComputablePermissions
+      summary: 'DEPRECATED: Promoted to ComputablePermissions in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalComputablePermissionsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalComputablePermissionsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/permissions/dependent:
+    post:
+      operationId: ExperimentalService_ExperimentalDependentRelations
+      summary: 'DEPRECATED: Promoted to DependentRelations in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalDependentRelationsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalDependentRelationsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/reflectschema:
+    post:
+      operationId: ExperimentalService_ExperimentalReflectSchema
+      summary: 'DEPRECATED: Promoted to ReflectSchema in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalReflectSchemaRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalReflectSchemaResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/registerrelationshipcounter:
+    post:
+      operationId: ExperimentalService_ExperimentalRegisterRelationshipCounter
+      summary: 'EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before
+
+        a count can be requested.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalRegisterRelationshipCounterRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalRegisterRelationshipCounterResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/relationships/bulkexport:
+    post:
+      operationId: ExperimentalService_BulkExportRelationships
+      summary: 'DEPRECATED: Promoted to ExportBulkRelationships in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkExportRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.(streaming responses)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/BulkExportRelationshipsResponse'
+                  error:
+                    $ref: '#/components/schemas/Status'
+                title: Stream result of BulkExportRelationshipsResponse
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/relationships/bulkimport:
+    post:
+      operationId: ExperimentalService_BulkImportRelationships
+      summary: 'DEPRECATED: Promoted to ImportBulkRelationships in the stable API.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkImportRelationshipsRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkImportRelationshipsResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /v1/experimental/unregisterrelationshipcounter:
+    post:
+      operationId: ExperimentalService_ExperimentalUnregisterRelationshipCounter
+      summary: 'EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships.'
+      tags:
+      - Experimental
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentalUnregisterRelationshipCounterRequest'
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentalUnregisterRelationshipCounterResponse'
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+components:
+  schemas:
+    Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    BulkImportRelationshipsRequest:
+      type: object
+      properties:
+        relationships:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Relationship'
+      description: 'BulkImportRelationshipsRequest represents one batch of the streaming
+
+        BulkImportRelationships API. The maximum size is only limited by the backing
+
+        datastore, and optimal size should be determined by the calling client
+
+        experimentally. When BulkImport is invoked and receives its first request message,
+
+        a transaction is opened to import the relationships. All requests sent to the same
+
+        invocation are executed under this single transaction. If a relationship already
+
+        exists within the datastore, the entire transaction will fail with an error.'
+    ExperimentalReflectSchemaResponse:
+      type: object
+      properties:
+        definitions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpDefinition'
+          description: definitions are the definitions defined in the schema.
+        caveats:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpCaveat'
+          description: caveats are the caveats defined in the schema.
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    RelationshipFilter:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          description: 'resource_type is the *optional* resource type of the relationship.
+
+            NOTE: It is not prefixed with "optional_" for legacy compatibility.'
+        optionalResourceId:
+          type: string
+          description: 'optional_resource_id is the *optional* resource ID of the relationship.
+
+            If specified, optional_resource_id_prefix cannot be specified.'
+        optionalResourceIdPrefix:
+          type: string
+          description: 'optional_resource_id_prefix is the *optional* prefix for the resource ID of the relationship.
+
+            If specified, optional_resource_id cannot be specified.'
+        optionalRelation:
+          type: string
+          description: relation is the *optional* relation of the relationship.
+        optionalSubjectFilter:
+          $ref: '#/components/schemas/SubjectFilter'
+          description: optional_subject_filter is the optional filter for the subjects of the relationships.
+      description: 'RelationshipFilter is a collection of filters which when applied to a
+
+        relationship will return relationships that have exactly matching fields.
+
+
+        All fields are optional and if left unspecified will not filter relationships,
+
+        but at least one field must be specified.
+
+
+        NOTE: The performance of the API will be affected by the selection of fields
+
+        on which to filter. If a field is not indexed, the performance of the API
+
+        can be significantly slower.'
+    ExperimentalDiffSchemaResponse:
+      type: object
+      properties:
+        diffs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpSchemaDiff'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    BulkExportRelationshipsResponse:
+      type: object
+      properties:
+        afterResultCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+        relationships:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Relationship'
+      description: 'BulkExportRelationshipsResponse is one page in a stream of relationship
+
+        groups that meet the criteria specified by the originating request. The
+
+        server will continue to stream back relationship groups as quickly as it can
+
+        until all relationships have been transmitted back.'
+    ZedToken:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'ZedToken represents a point in time, or a "revision" in SpiceDB.
+
+        It is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)
+
+        and can also be used to start watching for changes from a specific point in time.
+
+
+        See the authzed.api.v1.Consistency message for more information.'
+    ReadCounterValue:
+      type: object
+      properties:
+        relationshipCount:
+          type: string
+          format: uint64
+          description: relationship_count is the count of relationships that match the filter.
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the relationship count applies.
+    Relationship:
+      type: object
+      properties:
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+          title: resource is the resource to which the subject is related, in some manner
+        relation:
+          type: string
+          description: relation is how the resource and subject are related.
+        subject:
+          $ref: '#/components/schemas/SubjectReference'
+          description: subject is the subject to which the resource is related, in some manner.
+        optionalCaveat:
+          $ref: '#/components/schemas/ContextualizedCaveat'
+          title: optional_caveat is a reference to a the caveat that must be enforced over the relationship
+        optionalExpiresAt:
+          type: string
+          format: date-time
+          description: optional_expires_at is the time at which the relationship expires, if any.
+      description: 'Relationship specifies how a resource relates to a subject. Relationships
+
+        form the data for the graph over which all permissions questions are
+
+        answered.'
+    v1.Cursor:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'Cursor is used to provide resumption of listing between calls to APIs
+
+        such as LookupResources.'
+    Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'The status code, which should be an enum value of
+
+            [google.rpc.Code][google.rpc.Code].'
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Any'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    ExperimentalCountRelationshipsResponse:
+      type: object
+      properties:
+        counterStillCalculating:
+          type: boolean
+          description: counter_still_calculating is true if the counter is still calculating the count.
+        readCounterValue:
+          $ref: '#/components/schemas/ReadCounterValue'
+          description: read_counter_value is the value of the counter at the time of the read.
+    ExperimentalCountRelationshipsRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name is the name of the counter whose count is being requested.
+    ExperimentalUnregisterRelationshipCounterResponse:
+      type: object
+    ObjectReference:
+      type: object
+      properties:
+        objectType:
+          type: string
+        objectId:
+          type: string
+      description: ObjectReference is used to refer to a specific object in the system.
+    ExperimentalComputablePermissionsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        optionalDefinitionNameFilter:
+          type: string
+          description: 'optional_definition_name_match is a prefix that is matched against the definition name(s)
+
+            for the permissions returned.
+
+            If not specified, will be ignored.'
+    ContextualizedCaveat:
+      type: object
+      properties:
+        caveatName:
+          type: string
+          title: caveat_name is the name of the caveat expression to use, as defined in the schema
+        context:
+          type: object
+          title: context consists of any named values that are defined at write time for the caveat expression
+      description: 'ContextualizedCaveat represents a reference to a caveat to be used by caveated relationships.
+
+        The context consists of key-value pairs that will be injected at evaluation time.
+
+        The keys must match the arguments defined on the caveat in the schema.'
+    ExpCaveat:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the caveat. Will include
+
+            delimiter characters.'
+        parameters:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpCaveatParameter'
+        expression:
+          type: string
+      description: ExpCaveat is the representation of a caveat in the schema.
+    ExpTypeReference:
+      type: object
+      properties:
+        subjectDefinitionName:
+          type: string
+          description: subject_definition_name is the name of the subject's definition.
+        optionalCaveatName:
+          type: string
+          description: optional_caveat_name is the name of the caveat that is applied to the subject, if any.
+        isTerminalSubject:
+          type: boolean
+          description: is_terminal_subject is true if the subject is terminal, meaning it is referenced directly vs a sub-relation.
+        optionalRelationName:
+          type: string
+          description: optional_relation_name is the name of the relation that is applied to the subject, if any.
+        isPublicWildcard:
+          type: boolean
+          description: is_public_wildcard is true if the subject is a public wildcard.
+      description: ExpTypeReference is the representation of a type reference in the schema.
+    ExpPermission:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the permission. Will include
+
+            delimiter characters.'
+        parentDefinitionName:
+          type: string
+      description: ExpPermission is the representation of a permission in the schema.
+    ExperimentalReflectSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        optionalFilters:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpSchemaFilter'
+          title: 'optional_filters defines optional filters that are applied in
+
+            an OR fashion to the schema, before being returned'
+    ExperimentalRegisterRelationshipCounterResponse:
+      type: object
+    ExpCaveatParameter:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          title: 'type is the type of the parameter. Will be a string representing the
+
+            type, e.g. `int` or `list<string>`'
+        parentCaveatName:
+          type: string
+      description: ExpCaveatParameter is the representation of a parameter in a caveat.
+    ExpSchemaFilter:
+      type: object
+      properties:
+        optionalDefinitionNameFilter:
+          type: string
+          description: optional_definition_name_filter is a prefix that is matched against the definition name.
+        optionalCaveatNameFilter:
+          type: string
+          description: optional_caveat_name_filter is a prefix that is matched against the caveat name.
+        optionalRelationNameFilter:
+          type: string
+          description: optional_relation_name_filter is a prefix that is matched against the relation name.
+        optionalPermissionNameFilter:
+          type: string
+          description: optional_permission_name_filter is a prefix that is matched against the permission name.
+      description: ExpSchemaFilter is a filter that can be applied to the schema on reflection.
+    BulkCheckPermissionPair:
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/BulkCheckPermissionRequestItem'
+        item:
+          $ref: '#/components/schemas/BulkCheckPermissionResponseItem'
+        error:
+          $ref: '#/components/schemas/Status'
+    CheckPermissionResponse.Permissionship:
+      type: string
+      enum:
+      - PERMISSIONSHIP_UNSPECIFIED
+      - PERMISSIONSHIP_NO_PERMISSION
+      - PERMISSIONSHIP_HAS_PERMISSION
+      - PERMISSIONSHIP_CONDITIONAL_PERMISSION
+      default: PERMISSIONSHIP_UNSPECIFIED
+      description: " - PERMISSIONSHIP_UNSPECIFIED: PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or\nrelied upon. Servers should not return this value.\n - PERMISSIONSHIP_NO_PERMISSION: PERMISSIONSHIP_NO_PERMISSION indicates that the subject does not have the\nrequested permission on the resource.\n - PERMISSIONSHIP_HAS_PERMISSION: PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has the requested\npermission on the resource.\n - PERMISSIONSHIP_CONDITIONAL_PERMISSION: PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has the\nrequested permission on the resource, but only if a caveat condition is met.\nThe `partial_caveat_info` field in the response should contain the missing\ncontext fields that must be provided to fully evaluate the caveat."
+    ExperimentalComputablePermissionsResponse:
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpRelationReference'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    PartialCaveatInfo:
+      type: object
+      properties:
+        missingRequiredContext:
+          type: array
+          items:
+            type: string
+          title: 'missing_required_context is a list of one or more fields that were missing and prevented caveats
+
+            from being fully evaluated'
+      title: 'PartialCaveatInfo carries information necessary for the client to take action
+
+        in the event a response contains a partially evaluated caveat'
+    ExpRelation:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+        parentDefinitionName:
+          type: string
+        subjectTypes:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpTypeReference'
+      description: ExpRelation is the representation of a relation in the schema.
+    SubjectReference:
+      type: object
+      properties:
+        object:
+          $ref: '#/components/schemas/ObjectReference'
+        optionalRelation:
+          type: string
+      title: 'SubjectReference is used for referring to the subject portion of a
+
+        Relationship. The relation component is optional and is used for defining a
+
+        sub-relation on the subject, e.g. group:123#members'
+    ExpDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the definition. Will include
+
+            delimiter characters.'
+        relations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpRelation'
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpPermission'
+      description: ExpDefinition is the representation of a definition in the schema.
+    ExpCaveatParameterTypeChange:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ExpCaveatParameter'
+        previousType:
+          type: string
+    ExpRelationReference:
+      type: object
+      properties:
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        isPermission:
+          type: boolean
+      description: ExpRelationReference is a reference to a relation or permission in the schema.
+    ExperimentalDependentRelationsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
+          type: string
+        permissionName:
+          type: string
+    ExperimentalDiffSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        comparisonSchema:
+          type: string
+    RelationFilter:
+      type: object
+      properties:
+        relation:
+          type: string
+    BulkCheckPermissionResponse:
+      type: object
+      properties:
+        checkedAt:
+          $ref: '#/components/schemas/ZedToken'
+        pairs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/BulkCheckPermissionPair'
+    SubjectFilter:
+      type: object
+      properties:
+        subjectType:
+          type: string
+        optionalSubjectId:
+          type: string
+        optionalRelation:
+          $ref: '#/components/schemas/RelationFilter'
+      description: 'SubjectFilter specifies a filter on the subject of a relationship.
+
+
+        subject_type is required and all other fields are optional, and will not
+
+        impose any additional requirements if left unspecified.'
+    BulkCheckPermissionRequestItem:
+      type: object
+      properties:
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+        permission:
+          type: string
+        subject:
+          $ref: '#/components/schemas/SubjectReference'
+        context:
+          type: object
+    BulkCheckPermissionResponseItem:
+      type: object
+      properties:
+        permissionship:
+          $ref: '#/components/schemas/CheckPermissionResponse.Permissionship'
+        partialCaveatInfo:
+          $ref: '#/components/schemas/PartialCaveatInfo'
+    BulkCheckPermissionRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        items:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/BulkCheckPermissionRequestItem'
+      description: 'NOTE: Deprecated now that BulkCheckPermission has been promoted to the stable API as "CheckBulkPermission".'
+    BulkExportRelationshipsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        optionalLimit:
+          type: integer
+          format: int64
+          description: 'optional_limit, if non-zero, specifies the limit on the number of
+
+            relationships the server can return in one page. By default, the server
+
+            will pick a page size, and the server is free to choose a smaller size
+
+            at will.'
+        optionalCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+          description: 'optional_cursor, if specified, indicates the cursor after which results
+
+            should resume being returned. The cursor can be found on the
+
+            BulkExportRelationshipsResponse object.'
+        optionalRelationshipFilter:
+          $ref: '#/components/schemas/RelationshipFilter'
+          description: 'optional_relationship_filter, if specified, indicates the
+
+            filter to apply to each relationship to be exported.'
+      description: 'BulkExportRelationshipsRequest represents a resumable request for
+
+        all relationships from the server.'
+    ExpRelationSubjectTypeChange:
+      type: object
+      properties:
+        relation:
+          $ref: '#/components/schemas/ExpRelation'
+        changedSubjectType:
+          $ref: '#/components/schemas/ExpTypeReference'
+    ExperimentalDependentRelationsResponse:
+      type: object
+      properties:
+        relations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ExpRelationReference'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    BulkImportRelationshipsResponse:
+      type: object
+      properties:
+        numLoaded:
+          type: string
+          format: uint64
+      description: 'BulkImportRelationshipsResponse is returned on successful completion of the
+
+        bulk load stream, and contains the total number of relationships loaded.'
+    Consistency:
+      type: object
+      properties:
+        minimizeLatency:
+          type: boolean
+          description: 'minimize_latency indicates that the latency for the call should be
+
+            minimized by having the system select the fastest snapshot available.'
+        atLeastAsFresh:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_least_as_fresh indicates that all data used in the API call must be
+
+            *at least as fresh* as that found in the ZedToken; more recent data might
+
+            be used if available or faster.'
+        atExactSnapshot:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_exact_snapshot indicates that all data used in the API call must be
+
+            *at the given* snapshot in time; if the snapshot is no longer available,
+
+            an error will be returned to the caller.'
+        fullyConsistent:
+          type: boolean
+          description: 'fully_consistent indicates that all data used in the API call *must* be
+
+            at the most recent snapshot found.
+
+
+            NOTE: using this method can be *quite slow*, so unless there is a need to
+
+            do so, it is recommended to use `at_least_as_fresh` with a stored
+
+            ZedToken.'
+      description: 'Consistency will define how a request is handled by the backend.
+
+        By defining a consistency requirement, and a token at which those
+
+        requirements should be applied, where applicable.'
+    ExpSchemaDiff:
+      type: object
+      properties:
+        definitionAdded:
+          $ref: '#/components/schemas/ExpDefinition'
+        definitionRemoved:
+          $ref: '#/components/schemas/ExpDefinition'
+        definitionDocCommentChanged:
+          $ref: '#/components/schemas/ExpDefinition'
+        relationAdded:
+          $ref: '#/components/schemas/ExpRelation'
+        relationRemoved:
+          $ref: '#/components/schemas/ExpRelation'
+        relationDocCommentChanged:
+          $ref: '#/components/schemas/ExpRelation'
+        relationSubjectTypeAdded:
+          $ref: '#/components/schemas/ExpRelationSubjectTypeChange'
+        relationSubjectTypeRemoved:
+          $ref: '#/components/schemas/ExpRelationSubjectTypeChange'
+        permissionAdded:
+          $ref: '#/components/schemas/ExpPermission'
+        permissionRemoved:
+          $ref: '#/components/schemas/ExpPermission'
+        permissionDocCommentChanged:
+          $ref: '#/components/schemas/ExpPermission'
+        permissionExprChanged:
+          $ref: '#/components/schemas/ExpPermission'
+        caveatAdded:
+          $ref: '#/components/schemas/ExpCaveat'
+        caveatRemoved:
+          $ref: '#/components/schemas/ExpCaveat'
+        caveatDocCommentChanged:
+          $ref: '#/components/schemas/ExpCaveat'
+        caveatExprChanged:
+          $ref: '#/components/schemas/ExpCaveat'
+        caveatParameterAdded:
+          $ref: '#/components/schemas/ExpCaveatParameter'
+        caveatParameterRemoved:
+          $ref: '#/components/schemas/ExpCaveatParameter'
+        caveatParameterTypeChanged:
+          $ref: '#/components/schemas/ExpCaveatParameterTypeChange'
+      description: ExpSchemaDiff is the representation of a diff between two schemas.
+    ExperimentalRegisterRelationshipCounterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name is the name of the counter being registered.
+        relationshipFilter:
+          $ref: '#/components/schemas/RelationshipFilter'
+          description: 'relationship_filter defines the filter to be applied to the relationships
+
+            to be counted.'
+    ExperimentalUnregisterRelationshipCounterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name is the name of the counter being unregistered.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'SpiceDB preshared-key. Pass as Authorization: Bearer <preshared-key>'
