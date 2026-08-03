@@ -1,0 +1,22 @@
+{
+  "provider": "authzed",
+  "sources": [
+    "authzed-experimental-api-openapi.yml",
+    "authzed-permissions-api-openapi.yml",
+    "authzed-relationships-api-openapi.yml",
+    "authzed-schema-api-openapi.yml",
+    "authzed-watch-api-openapi.yml"
+  ],
+  "outputs": [
+    "authzed-experimental-api-openapi.yml",
+    "authzed-permissions-api-openapi.yml",
+    "authzed-relationships-api-openapi.yml",
+    "authzed-schema-api-openapi.yml",
+    "authzed-watch-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
