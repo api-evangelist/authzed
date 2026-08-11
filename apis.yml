@@ -152,6 +152,17 @@ apis:
   - type: SDKs
     url: https://authzed.com/docs/spicedb/getting-started/client-libraries
 common:
+  - type: IssueTracker
+    url: https://github.com/authzed/api/issues
+  - type: Releases
+    url: https://github.com/authzed/api/releases
+  - type: CodeOfConduct
+    url: https://github.com/authzed/api/blob/main/CODE-OF-CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/authzed/api/blob/main/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/authzed/api/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/authzed-agentic-access.yml
   - type: TrustCenter
