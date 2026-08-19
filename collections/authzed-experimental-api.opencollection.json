@@ -1,0 +1,214 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authzed SpiceDB Permissions Experimental API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Experimental",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/countrelationships",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "EXPERIMENTAL: CountRelationships returns the count of relationships for *pre-registered* filter."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to DiffSchema in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/diffschema",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to DiffSchema in the stable API."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to CheckBulkPermission in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/permissions/bulkcheckpermission",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to CheckBulkPermission in the stable API."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to ComputablePermissions in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/permissions/computable",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to ComputablePermissions in the stable API."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to DependentRelations in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/permissions/dependent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to DependentRelations in the stable API."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to ReflectSchema in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/reflectschema",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to ReflectSchema in the stable API."
+        },
+        {
+          "info": {
+            "name": "EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before\na count can be requested.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/registerrelationshipcounter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "EXPERIMENTAL: RegisterRelationshipCounter registers a new filter for counting relationships. A filter must be registered before\na count can be requested."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to ExportBulkRelationships in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/relationships/bulkexport",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to ExportBulkRelationships in the stable API."
+        },
+        {
+          "info": {
+            "name": "DEPRECATED: Promoted to ImportBulkRelationships in the stable API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/relationships/bulkimport",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DEPRECATED: Promoted to ImportBulkRelationships in the stable API."
+        },
+        {
+          "info": {
+            "name": "EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/experimental/unregisterrelationshipcounter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "EXPERIMENTAL: UnregisterRelationshipCounter unregisters an existing filter for counting relationships."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

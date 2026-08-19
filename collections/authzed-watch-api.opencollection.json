@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authzed SpiceDB Permissions Experimental Watch API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Watch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Watch returns a stream of events that occurred in the datastore in ascending timestamp order.\nThe events can be relationship updates, schema updates, or checkpoints.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/watch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Watch returns a stream of events that occurred in the datastore in ascending timestamp order.\nThe events can be relationship updates, schema updates, or checkpoints."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

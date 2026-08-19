@@ -1,0 +1,199 @@
+{
+  "item": [
+    {
+      "id": "014b179a-5a0e-4c95-980f-3c7500d707cd",
+      "name": "Watch",
+      "description": {
+        "content": "Stream real-time relationship change updates",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "241fad84-2d80-4949-9601-23ffdb2987d7",
+          "name": "Watch returns a stream of events that occurred in the datastore in ascending timestamp order.\nThe events can be relationship updates, schema updates, or checkpoints.",
+          "request": {
+            "name": "Watch returns a stream of events that occurred in the datastore in ascending timestamp order.\nThe events can be relationship updates, schema updates, or checkpoints.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "watch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"optionalObjectTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalStartCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"optionalRelationshipFilters\": [\n    {\n      \"resourceType\": \"<string>\",\n      \"optionalResourceId\": \"<string>\",\n      \"optionalResourceIdPrefix\": \"<string>\",\n      \"optionalRelation\": \"<string>\",\n      \"optionalSubjectFilter\": {\n        \"subjectType\": \"<string>\",\n        \"optionalSubjectId\": \"<string>\",\n        \"optionalRelation\": {\n          \"relation\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"resourceType\": \"<string>\",\n      \"optionalResourceId\": \"<string>\",\n      \"optionalResourceIdPrefix\": \"<string>\",\n      \"optionalRelation\": \"<string>\",\n      \"optionalSubjectFilter\": {\n        \"subjectType\": \"<string>\",\n        \"optionalSubjectId\": \"<string>\",\n        \"optionalRelation\": {\n          \"relation\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"optionalUpdateKinds\": [\n    \"WATCH_KIND_UNSPECIFIED\",\n    \"WATCH_KIND_UNSPECIFIED\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59952857-4e9c-4c40-99f2-0ff45deeffc0",
+              "name": "A successful response.(streaming responses)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "watch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"optionalObjectTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalStartCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"optionalRelationshipFilters\": [\n    {\n      \"resourceType\": \"<string>\",\n      \"optionalResourceId\": \"<string>\",\n      \"optionalResourceIdPrefix\": \"<string>\",\n      \"optionalRelation\": \"<string>\",\n      \"optionalSubjectFilter\": {\n        \"subjectType\": \"<string>\",\n        \"optionalSubjectId\": \"<string>\",\n        \"optionalRelation\": {\n          \"relation\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"resourceType\": \"<string>\",\n      \"optionalResourceId\": \"<string>\",\n      \"optionalResourceIdPrefix\": \"<string>\",\n      \"optionalRelation\": \"<string>\",\n      \"optionalSubjectFilter\": {\n        \"subjectType\": \"<string>\",\n        \"optionalSubjectId\": \"<string>\",\n        \"optionalRelation\": {\n          \"relation\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"optionalUpdateKinds\": [\n    \"WATCH_KIND_UNSPECIFIED\",\n    \"WATCH_KIND_UNSPECIFIED\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"updates\": [\n      {\n        \"operation\": \"OPERATION_UNSPECIFIED\",\n        \"relationship\": {\n          \"resource\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"relation\": \"string\",\n          \"subject\": {\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optionalRelation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalCaveat\": {\n            \"caveatName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"context\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalExpiresAt\": \"2000-04-21T14:04:25.366Z\"\n        }\n      },\n      {\n        \"operation\": \"OPERATION_UNSPECIFIED\",\n        \"relationship\": {\n          \"resource\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"relation\": \"string\",\n          \"subject\": {\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optionalRelation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalCaveat\": {\n            \"caveatName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"context\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalExpiresAt\": \"1952-02-10T22:17:43.597Z\"\n        }\n      }\n    ],\n    \"changesThrough\": {\n      \"token\": \"<string>\"\n    },\n    \"optionalTransactionMetadata\": {},\n    \"schemaUpdated\": false,\n    \"isCheckpoint\": false\n  },\n  \"error\": {\n    \"code\": 612,\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"@type\": \"string\",\n        \"key_0\": {}\n      },\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa4d5658-5af6-4b4c-b7f4-e86760cab5e5",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "watch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"optionalObjectTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"optionalStartCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"optionalRelationshipFilters\": [\n    {\n      \"resourceType\": \"<string>\",\n      \"optionalResourceId\": \"<string>\",\n      \"optionalResourceIdPrefix\": \"<string>\",\n      \"optionalRelation\": \"<string>\",\n      \"optionalSubjectFilter\": {\n        \"subjectType\": \"<string>\",\n        \"optionalSubjectId\": \"<string>\",\n        \"optionalRelation\": {\n          \"relation\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"resourceType\": \"<string>\",\n      \"optionalResourceId\": \"<string>\",\n      \"optionalResourceIdPrefix\": \"<string>\",\n      \"optionalRelation\": \"<string>\",\n      \"optionalSubjectFilter\": {\n        \"subjectType\": \"<string>\",\n        \"optionalSubjectId\": \"<string>\",\n        \"optionalRelation\": {\n          \"relation\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"optionalUpdateKinds\": [\n    \"WATCH_KIND_UNSPECIFIED\",\n    \"WATCH_KIND_UNSPECIFIED\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 734,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://grpc.authzed.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b5cf8c16-8191-41fc-bd3c-60c1a07c05fc",
+    "name": "Authzed SpiceDB Permissions Experimental Watch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.\n\nContact Support:\n Name: Authzed, Inc.\n Email: support@authzed.com",
+      "type": "text/plain"
+    }
+  }
+}

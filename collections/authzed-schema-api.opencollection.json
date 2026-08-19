@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authzed SpiceDB Permissions Experimental Schema API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schema",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DiffSchema returns the difference between the specified schema and the current\nschema stored in SpiceDB.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/schema/diffschema",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DiffSchema returns the difference between the specified schema and the current\nschema stored in SpiceDB."
+        },
+        {
+          "info": {
+            "name": "ComputablePermissions returns the set of permissions that compute based off a relation\nin the current schema. For example, if the schema has a relation `viewer` and a permission\n`view` defined as `permission view = viewer + editor`, then the\ncomputable permissions for the relation `viewer` will include `view`.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/schema/permissions/computable",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ComputablePermissions returns the set of permissions that compute based off a relation\nin the current schema. For example, if the schema has a relation `viewer` and a permission\n`view` defined as `permission view = viewer + editor`, then the\ncomputable permissions for the relation `viewer` will include `view`."
+        },
+        {
+          "info": {
+            "name": "DependentRelations returns the set of relations and permissions that used\nto compute a permission, recursively, in the current schema. It is the\ninverse of the ComputablePermissions API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/schema/permissions/dependent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DependentRelations returns the set of relations and permissions that used\nto compute a permission, recursively, in the current schema. It is the\ninverse of the ComputablePermissions API."
+        },
+        {
+          "info": {
+            "name": "Read returns the current Object Definitions for a Permissions System.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/schema/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Errors include:\n- INVALID_ARGUMENT: a provided value has failed to semantically validate\n- NOT_FOUND: no schema has been defined"
+        },
+        {
+          "info": {
+            "name": "ReflectSchema reflects the current schema stored in SpiceDB, returning a structural\nform of the schema for use by client tooling.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/schema/reflectschema",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ReflectSchema reflects the current schema stored in SpiceDB, returning a structural\nform of the schema for use by client tooling."
+        },
+        {
+          "info": {
+            "name": "Write overwrites the current Object Definitions for a Permissions System.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/schema/write",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Write overwrites the current Object Definitions for a Permissions System."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1016 @@
+{
+  "item": [
+    {
+      "id": "85391199-c33d-4eb9-a117-bcf795b5fb41",
+      "name": "Schema",
+      "description": {
+        "content": "Manage SpiceDB schema definitions, diff schemas, and reflect schema metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b76c75b2-a74d-4648-ae97-057bf0baf0df",
+          "name": "DiffSchema returns the difference between the specified schema and the current\nschema stored in SpiceDB.",
+          "request": {
+            "name": "DiffSchema returns the difference between the specified schema and the current\nschema stored in SpiceDB.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "schema",
+                "diffschema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"comparisonSchema\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdae58ab-8a34-4058-b5a7-efec09ecdcd7",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "diffschema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"comparisonSchema\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"diffs\": [\n    {\n      \"definitionAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"relations\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          }\n        ]\n      },\n      \"definitionRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"relations\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          }\n        ]\n      },\n      \"definitionDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"relations\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          }\n        ]\n      },\n      \"relationAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\",\n        \"subjectTypes\": [\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          },\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          }\n        ]\n      },\n      \"relationRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\",\n        \"subjectTypes\": [\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          },\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": false,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          }\n        ]\n      },\n      \"relationDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\",\n        \"subjectTypes\": [\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          },\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": false\n          }\n        ]\n      },\n      \"relationSubjectTypeAdded\": {\n        \"relation\": {\n          \"name\": \"string\",\n          \"comment\": \"string\",\n          \"parentDefinitionName\": \"string\",\n          \"subjectTypes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"changedSubjectType\": {\n          \"subjectDefinitionName\": \"string\",\n          \"optionalCaveatName\": \"string\",\n          \"isTerminalSubject\": true,\n          \"optionalRelationName\": \"string\",\n          \"isPublicWildcard\": true\n        }\n      },\n      \"relationSubjectTypeRemoved\": {\n        \"relation\": {\n          \"name\": \"string\",\n          \"comment\": \"string\",\n          \"parentDefinitionName\": \"string\",\n          \"subjectTypes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"changedSubjectType\": {\n          \"subjectDefinitionName\": \"string\",\n          \"optionalCaveatName\": \"string\",\n          \"isTerminalSubject\": true,\n          \"optionalRelationName\": \"string\",\n          \"isPublicWildcard\": true\n        }\n      },\n      \"permissionAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"permissionRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"permissionDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"permissionExprChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"caveatAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatExprChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatParameterAdded\": {\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"parentCaveatName\": \"string\"\n      },\n      \"caveatParameterRemoved\": {\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"parentCaveatName\": \"string\"\n      },\n      \"caveatParameterTypeChanged\": {\n        \"parameter\": {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"parentCaveatName\": \"string\"\n        },\n        \"previousType\": \"string\"\n      }\n    },\n    {\n      \"definitionAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"relations\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          }\n        ]\n      },\n      \"definitionRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"relations\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          }\n        ]\n      },\n      \"definitionDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"relations\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\",\n            \"subjectTypes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"comment\": \"string\",\n            \"parentDefinitionName\": \"string\"\n          }\n        ]\n      },\n      \"relationAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\",\n        \"subjectTypes\": [\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": false,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          },\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          }\n        ]\n      },\n      \"relationRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\",\n        \"subjectTypes\": [\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": false,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          },\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": false,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": false\n          }\n        ]\n      },\n      \"relationDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\",\n        \"subjectTypes\": [\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": false,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": true\n          },\n          {\n            \"subjectDefinitionName\": \"string\",\n            \"optionalCaveatName\": \"string\",\n            \"isTerminalSubject\": true,\n            \"optionalRelationName\": \"string\",\n            \"isPublicWildcard\": false\n          }\n        ]\n      },\n      \"relationSubjectTypeAdded\": {\n        \"relation\": {\n          \"name\": \"string\",\n          \"comment\": \"string\",\n          \"parentDefinitionName\": \"string\",\n          \"subjectTypes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"changedSubjectType\": {\n          \"subjectDefinitionName\": \"string\",\n          \"optionalCaveatName\": \"string\",\n          \"isTerminalSubject\": false,\n          \"optionalRelationName\": \"string\",\n          \"isPublicWildcard\": false\n        }\n      },\n      \"relationSubjectTypeRemoved\": {\n        \"relation\": {\n          \"name\": \"string\",\n          \"comment\": \"string\",\n          \"parentDefinitionName\": \"string\",\n          \"subjectTypes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"changedSubjectType\": {\n          \"subjectDefinitionName\": \"string\",\n          \"optionalCaveatName\": \"string\",\n          \"isTerminalSubject\": false,\n          \"optionalRelationName\": \"string\",\n          \"isPublicWildcard\": false\n        }\n      },\n      \"permissionAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"permissionRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"permissionDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"permissionExprChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parentDefinitionName\": \"string\"\n      },\n      \"caveatAdded\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatRemoved\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatDocCommentChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatExprChanged\": {\n        \"name\": \"string\",\n        \"comment\": \"string\",\n        \"parameters\": [\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"type\": \"string\",\n            \"parentCaveatName\": \"string\"\n          }\n        ],\n        \"expression\": \"string\"\n      },\n      \"caveatParameterAdded\": {\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"parentCaveatName\": \"string\"\n      },\n      \"caveatParameterRemoved\": {\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"parentCaveatName\": \"string\"\n      },\n      \"caveatParameterTypeChanged\": {\n        \"parameter\": {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"parentCaveatName\": \"string\"\n        },\n        \"previousType\": \"string\"\n      }\n    }\n  ],\n  \"readAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c94ff051-1222-4767-9364-e6b380dabee1",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "diffschema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"comparisonSchema\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2696,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28c73ada-a2ef-4ec7-920d-fa4bb8caa565",
+          "name": "ComputablePermissions returns the set of permissions that compute based off a relation\nin the current schema. For example, if the schema has a relation `viewer` and a permission\n`view` defined as `permission view = viewer + editor`, then the\ncomputable permissions for the relation `viewer` will include `view`.",
+          "request": {
+            "name": "ComputablePermissions returns the set of permissions that compute based off a relation\nin the current schema. For example, if the schema has a relation `viewer` and a permission\n`view` defined as `permission view = viewer + editor`, then the\ncomputable permissions for the relation `viewer` will include `view`.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "schema",
+                "permissions",
+                "computable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"definitionName\": \"<string>\",\n  \"relationName\": \"<string>\",\n  \"optionalDefinitionNameFilter\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5779e444-23e3-485d-a630-e20b9fef8ba6",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "permissions",
+                    "computable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"definitionName\": \"<string>\",\n  \"relationName\": \"<string>\",\n  \"optionalDefinitionNameFilter\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"permissions\": [\n    {\n      \"definitionName\": \"string\",\n      \"relationName\": \"string\",\n      \"isPermission\": false\n    },\n    {\n      \"definitionName\": \"string\",\n      \"relationName\": \"string\",\n      \"isPermission\": false\n    }\n  ],\n  \"readAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce7c50b0-d5f6-4109-b4bd-a1bdfea9d6be",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "permissions",
+                    "computable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"definitionName\": \"<string>\",\n  \"relationName\": \"<string>\",\n  \"optionalDefinitionNameFilter\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7162,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffb79b19-a14b-40df-990d-523456976aaf",
+          "name": "DependentRelations returns the set of relations and permissions that used\nto compute a permission, recursively, in the current schema. It is the\ninverse of the ComputablePermissions API.",
+          "request": {
+            "name": "DependentRelations returns the set of relations and permissions that used\nto compute a permission, recursively, in the current schema. It is the\ninverse of the ComputablePermissions API.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "schema",
+                "permissions",
+                "dependent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"definitionName\": \"<string>\",\n  \"permissionName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0b5f781f-09c5-4896-8e74-a1396fb9353b",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "permissions",
+                    "dependent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"definitionName\": \"<string>\",\n  \"permissionName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"relations\": [\n    {\n      \"definitionName\": \"string\",\n      \"relationName\": \"string\",\n      \"isPermission\": true\n    },\n    {\n      \"definitionName\": \"string\",\n      \"relationName\": \"string\",\n      \"isPermission\": false\n    }\n  ],\n  \"readAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f985608-4784-48a9-b607-2db81fa460f2",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "permissions",
+                    "dependent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"definitionName\": \"<string>\",\n  \"permissionName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7162,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1bbc1a34-e3a0-4162-9c0e-dc139b23298f",
+          "name": "Read returns the current Object Definitions for a Permissions System.",
+          "request": {
+            "name": "Read returns the current Object Definitions for a Permissions System.",
+            "description": {
+              "content": "Errors include:\n- INVALID_ARGUMENT: a provided value has failed to semantically validate\n- NOT_FOUND: no schema has been defined",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "schema",
+                "read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c798b3fc-f754-4790-9055-612e1d4ad447",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemaText\": \"string\",\n  \"readAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7de2dba-7917-4441-b553-d62ef4df6ef2",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7162,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb654f53-421d-4f7c-a7b9-a7518e3ac159",
+          "name": "ReflectSchema reflects the current schema stored in SpiceDB, returning a structural\nform of the schema for use by client tooling.",
+          "request": {
+            "name": "ReflectSchema reflects the current schema stored in SpiceDB, returning a structural\nform of the schema for use by client tooling.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "schema",
+                "reflectschema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"optionalFilters\": [\n    {\n      \"optionalDefinitionNameFilter\": \"<string>\",\n      \"optionalCaveatNameFilter\": \"<string>\",\n      \"optionalRelationNameFilter\": \"<string>\",\n      \"optionalPermissionNameFilter\": \"<string>\"\n    },\n    {\n      \"optionalDefinitionNameFilter\": \"<string>\",\n      \"optionalCaveatNameFilter\": \"<string>\",\n      \"optionalRelationNameFilter\": \"<string>\",\n      \"optionalPermissionNameFilter\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f7be4c4-da93-4ceb-88f5-3d197c5a08e3",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "reflectschema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"optionalFilters\": [\n    {\n      \"optionalDefinitionNameFilter\": \"<string>\",\n      \"optionalCaveatNameFilter\": \"<string>\",\n      \"optionalRelationNameFilter\": \"<string>\",\n      \"optionalPermissionNameFilter\": \"<string>\"\n    },\n    {\n      \"optionalDefinitionNameFilter\": \"<string>\",\n      \"optionalCaveatNameFilter\": \"<string>\",\n      \"optionalRelationNameFilter\": \"<string>\",\n      \"optionalPermissionNameFilter\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"definitions\": {\n    \"type\": \"array\",\n    \"description\": \"definitions are the definitions defined in the schema.\",\n    \"maxItems\": 2,\n    \"items\": {\n      \"type\": \"object\",\n      \"description\": \"ReflectionDefinition is the representation of a definition in the schema.\",\n      \"properties\": {\n        \"name\": {\n          \"type\": \"string\"\n        },\n        \"comment\": {\n          \"type\": \"string\",\n          \"description\": \"comment is a human-readable comments on the definition. Will include\\ndelimiter characters.\"\n        },\n        \"relations\": {\n          \"type\": \"array\",\n          \"maxItems\": 2,\n          \"minItems\": 2,\n          \"items\": {\n            \"type\": \"object\",\n            \"description\": \"ReflectionRelation is the representation of a relation in the schema.\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"comment\": {\n                \"type\": \"string\"\n              },\n              \"parentDefinitionName\": {\n                \"type\": \"string\"\n              },\n              \"subjectTypes\": {\n                \"type\": \"array\",\n                \"maxItems\": 2,\n                \"minItems\": 2,\n                \"items\": {\n                  \"type\": \"object\",\n                  \"description\": \"ReflectionTypeReference is the representation of a type reference in the schema.\",\n                  \"properties\": {\n                    \"subjectDefinitionName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"optionalCaveatName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"isTerminalSubject\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"optionalRelationName\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    },\n                    \"isPublicWildcard\": {\n                      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                    }\n                  }\n                }\n              }\n            }\n          }\n        },\n        \"permissions\": {\n          \"type\": \"array\",\n          \"maxItems\": 2,\n          \"minItems\": 2,\n          \"items\": {\n            \"type\": \"object\",\n            \"description\": \"ReflectionPermission is the representation of a permission in the schema.\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"comment\": {\n                \"type\": \"string\",\n                \"description\": \"comment is a human-readable comments on the permission. Will include\\ndelimiter characters.\"\n              },\n              \"parentDefinitionName\": {\n                \"type\": \"string\"\n              }\n            }\n          }\n        }\n      }\n    }\n  },\n  \"caveats\": [\n    {\n      \"name\": \"string\",\n      \"comment\": \"string\",\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"parentCaveatName\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"parentCaveatName\": \"string\"\n        }\n      ],\n      \"expression\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"comment\": \"string\",\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"parentCaveatName\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"parentCaveatName\": \"string\"\n        }\n      ],\n      \"expression\": \"string\"\n    }\n  ],\n  \"readAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dab90923-9722-494d-a06c-cdd46786093e",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "reflectschema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"optionalFilters\": [\n    {\n      \"optionalDefinitionNameFilter\": \"<string>\",\n      \"optionalCaveatNameFilter\": \"<string>\",\n      \"optionalRelationNameFilter\": \"<string>\",\n      \"optionalPermissionNameFilter\": \"<string>\"\n    },\n    {\n      \"optionalDefinitionNameFilter\": \"<string>\",\n      \"optionalCaveatNameFilter\": \"<string>\",\n      \"optionalRelationNameFilter\": \"<string>\",\n      \"optionalPermissionNameFilter\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7162,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d38ff9e5-839e-4f6f-b062-39a2eb0c5640",
+          "name": "Write overwrites the current Object Definitions for a Permissions System.",
+          "request": {
+            "name": "Write overwrites the current Object Definitions for a Permissions System.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "schema",
+                "write"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schema\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0620fad-883b-4e1d-b4ee-633d7aa09915",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "write"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schema\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"writtenAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c005009-fd6c-4035-8755-aa4da4985db8",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "schema",
+                    "write"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schema\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7162,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://grpc.authzed.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "69c250ea-95da-4d04-9b23-40f31511e0fe",
+    "name": "Authzed SpiceDB Permissions Experimental Schema API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.\n\nContact Support:\n Name: Authzed, Inc.\n Email: support@authzed.com",
+      "type": "text/plain"
+    }
+  }
+}

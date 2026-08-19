@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authzed SpiceDB Experimental Permissions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Permissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "CheckPermission determines for a given resource whether a subject computes\nto having a permission or is a direct member of a particular relation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/permissions/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "CheckPermission determines for a given resource whether a subject computes\nto having a permission or is a direct member of a particular relation."
+        },
+        {
+          "info": {
+            "name": "CheckBulkPermissions evaluates the given list of permission checks\nand returns the list of results.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/permissions/checkbulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "CheckBulkPermissions evaluates the given list of permission checks\nand returns the list of results."
+        },
+        {
+          "info": {
+            "name": "ExpandPermissionTree reveals the graph structure for a resource's\npermission or relation. This RPC does not recurse infinitely deep and may\nrequire multiple calls to fully unnest a deeply nested graph.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/permissions/expand",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ExpandPermissionTree reveals the graph structure for a resource's\npermission or relation. This RPC does not recurse infinitely deep and may\nrequire multiple calls to fully unnest a deeply nested graph."
+        },
+        {
+          "info": {
+            "name": "LookupResources returns all the resources of a given type that a subject\ncan access whether via a computed permission or relation membership.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/permissions/resources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "LookupResources returns all the resources of a given type that a subject\ncan access whether via a computed permission or relation membership."
+        },
+        {
+          "info": {
+            "name": "LookupSubjects returns all the subjects of a given type that\nhave access whether via a computed permission or relation membership.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/permissions/subjects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "LookupSubjects returns all the subjects of a given type that\nhave access whether via a computed permission or relation membership."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

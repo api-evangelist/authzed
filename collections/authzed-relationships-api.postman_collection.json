@@ -1,0 +1,846 @@
+{
+  "item": [
+    {
+      "id": "a9951a7e-ea53-461c-9c4e-165013ec8355",
+      "name": "Relationships",
+      "description": {
+        "content": "Read, write, delete, and bulk import/export relationship tuples",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3231581-525e-499a-8e5e-04ebff241eb3",
+          "name": "DeleteRelationships atomically bulk deletes all relationships matching the\nprovided filter. If no relationships match, none will be deleted and the\noperation will succeed. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit.",
+          "request": {
+            "name": "DeleteRelationships atomically bulk deletes all relationships matching the\nprovided filter. If no relationships match, none will be deleted and the\noperation will succeed. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "relationships",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"relationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  },\n  \"optionalPreconditions\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"optionalLimit\": \"<long>\",\n  \"optionalAllowPartialDeletions\": \"<boolean>\",\n  \"optionalTransactionMetadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21db42e7-2ef6-41d0-81ad-082d8b341fd0",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"relationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  },\n  \"optionalPreconditions\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"optionalLimit\": \"<long>\",\n  \"optionalAllowPartialDeletions\": \"<boolean>\",\n  \"optionalTransactionMetadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deletedAt\": {\n    \"token\": \"string\"\n  },\n  \"deletionProgress\": \"DELETION_PROGRESS_UNSPECIFIED\",\n  \"relationshipsDeletedCount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46aa5890-2b02-4799-be44-ce8034ddaf1e",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"relationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  },\n  \"optionalPreconditions\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"optionalLimit\": \"<long>\",\n  \"optionalAllowPartialDeletions\": \"<boolean>\",\n  \"optionalTransactionMetadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4100,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a92167d-f9e5-4a8e-8df4-1a4a6b625635",
+          "name": "ExportBulkRelationships is the fastest path available to exporting\nrelationships from the server. It is resumable, and will return results\nin an order determined by the server.",
+          "request": {
+            "name": "ExportBulkRelationships is the fastest path available to exporting\nrelationships from the server. It is resumable, and will return results\nin an order determined by the server.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "relationships",
+                "exportbulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"optionalRelationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20ac2625-961d-404e-9234-ce3470165e38",
+              "name": "A successful response.(streaming responses)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "exportbulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"optionalRelationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"afterResultCursor\": {\n      \"token\": \"<string>\"\n    },\n    \"relationships\": [\n      {\n        \"resource\": {\n          \"objectType\": \"string\",\n          \"objectId\": \"string\"\n        },\n        \"relation\": \"string\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"string\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"string\",\n          \"context\": {}\n        },\n        \"optionalExpiresAt\": \"1977-04-11T23:39:47.586Z\"\n      },\n      {\n        \"resource\": {\n          \"objectType\": \"string\",\n          \"objectId\": \"string\"\n        },\n        \"relation\": \"string\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"string\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"string\",\n          \"context\": {}\n        },\n        \"optionalExpiresAt\": \"1976-04-21T19:01:04.111Z\"\n      }\n    ]\n  },\n  \"error\": {\n    \"code\": 7757,\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"@type\": \"string\",\n        \"key_0\": {}\n      },\n      {\n        \"@type\": \"string\",\n        \"key_0\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad3f91de-8048-4130-b4dd-c93d50de2d2c",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "exportbulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"optionalRelationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5981,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08dbeae7-7929-4e7a-9445-46bb1d704138",
+          "name": "ImportBulkRelationships is a faster path to writing a large number of\nrelationships at once. It is both batched and streaming. For maximum\nperformance, the caller should attempt to write relationships in as close\nto relationship sort order as possible: (resource.object_type,\nresource.object_id, relation, subject.object.object_type,\nsubject.object.object_id, subject.optional_relation). All relationships\nwritten are done so under a single transaction.",
+          "request": {
+            "name": "ImportBulkRelationships is a faster path to writing a large number of\nrelationships at once. It is both batched and streaming. For maximum\nperformance, the caller should attempt to write relationships in as close\nto relationship sort order as possible: (resource.object_type,\nresource.object_id, relation, subject.object.object_type,\nsubject.object.object_id, subject.optional_relation). All relationships\nwritten are done so under a single transaction.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "relationships",
+                "importbulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"relationships\": [\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    },\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36905259-1774-407c-a20b-b42446d9d53e",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "importbulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"relationships\": [\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    },\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"numLoaded\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac08e3d2-80eb-4af4-801f-fb707f635d51",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "importbulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"relationships\": [\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    },\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5981,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76bd31c0-b2c0-41ee-b271-e2f938d772b4",
+          "name": "ReadRelationships reads a set of the relationships matching one or more\nfilters.",
+          "request": {
+            "name": "ReadRelationships reads a set of the relationships matching one or more\nfilters.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "relationships",
+                "read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"relationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  },\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f8cac60-02dc-4bb5-bff8-404ade021172",
+              "name": "A successful response.(streaming responses)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"relationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  },\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"readAt\": {\n      \"token\": \"<string>\"\n    },\n    \"relationship\": {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"relation\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"optionalCaveat\": {\n        \"caveatName\": \"<string>\",\n        \"context\": \"<object>\"\n      },\n      \"optionalExpiresAt\": \"<dateTime>\"\n    },\n    \"afterResultCursor\": {\n      \"token\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"code\": 9012,\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "665ee29b-1014-4396-afd5-1067d19a82a4",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"relationshipFilter\": {\n    \"resourceType\": \"<string>\",\n    \"optionalResourceId\": \"<string>\",\n    \"optionalResourceIdPrefix\": \"<string>\",\n    \"optionalRelation\": \"<string>\",\n    \"optionalSubjectFilter\": {\n      \"subjectType\": \"<string>\",\n      \"optionalSubjectId\": \"<string>\",\n      \"optionalRelation\": {\n        \"relation\": \"<string>\"\n      }\n    }\n  },\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5981,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f201db55-d8ce-4093-ada4-0a072ee73d85",
+          "name": "WriteRelationships atomically writes and/or deletes a set of specified\nrelationships. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit.",
+          "request": {
+            "name": "WriteRelationships atomically writes and/or deletes a set of specified\nrelationships. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "relationships",
+                "write"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"updates\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"relationship\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"relation\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"<string>\",\n          \"context\": \"<object>\"\n        },\n        \"optionalExpiresAt\": \"<dateTime>\"\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"relationship\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"relation\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"<string>\",\n          \"context\": \"<object>\"\n        },\n        \"optionalExpiresAt\": \"<dateTime>\"\n      }\n    }\n  ],\n  \"optionalPreconditions\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"optionalTransactionMetadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "17040362-0c84-40f3-9d12-6f42b0283893",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "write"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"updates\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"relationship\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"relation\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"<string>\",\n          \"context\": \"<object>\"\n        },\n        \"optionalExpiresAt\": \"<dateTime>\"\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"relationship\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"relation\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"<string>\",\n          \"context\": \"<object>\"\n        },\n        \"optionalExpiresAt\": \"<dateTime>\"\n      }\n    }\n  ],\n  \"optionalPreconditions\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"optionalTransactionMetadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"writtenAt\": {\n    \"token\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18c6dc71-dd7a-4d23-8f19-513dc0a703b7",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relationships",
+                    "write"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"updates\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"relationship\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"relation\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"<string>\",\n          \"context\": \"<object>\"\n        },\n        \"optionalExpiresAt\": \"<dateTime>\"\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"relationship\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"relation\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"optionalCaveat\": {\n          \"caveatName\": \"<string>\",\n          \"context\": \"<object>\"\n        },\n        \"optionalExpiresAt\": \"<dateTime>\"\n      }\n    }\n  ],\n  \"optionalPreconditions\": [\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"filter\": {\n        \"resourceType\": \"<string>\",\n        \"optionalResourceId\": \"<string>\",\n        \"optionalResourceIdPrefix\": \"<string>\",\n        \"optionalRelation\": \"<string>\",\n        \"optionalSubjectFilter\": {\n          \"subjectType\": \"<string>\",\n          \"optionalSubjectId\": \"<string>\",\n          \"optionalRelation\": {\n            \"relation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"optionalTransactionMetadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5981,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://grpc.authzed.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "af783e86-ac43-460d-8ef3-4819fe4c5948",
+    "name": "Authzed SpiceDB Permissions Experimental Relationships API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.\n\nContact Support:\n Name: Authzed, Inc.\n Email: support@authzed.com",
+      "type": "text/plain"
+    }
+  }
+}

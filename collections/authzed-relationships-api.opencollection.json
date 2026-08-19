@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Authzed SpiceDB Permissions Experimental Relationships API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relationships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DeleteRelationships atomically bulk deletes all relationships matching the\nprovided filter. If no relationships match, none will be deleted and the\noperation will succeed. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/relationships/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "DeleteRelationships atomically bulk deletes all relationships matching the\nprovided filter. If no relationships match, none will be deleted and the\noperation will succeed. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit."
+        },
+        {
+          "info": {
+            "name": "ExportBulkRelationships is the fastest path available to exporting\nrelationships from the server. It is resumable, and will return results\nin an order determined by the server.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/relationships/exportbulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ExportBulkRelationships is the fastest path available to exporting\nrelationships from the server. It is resumable, and will return results\nin an order determined by the server."
+        },
+        {
+          "info": {
+            "name": "ImportBulkRelationships is a faster path to writing a large number of\nrelationships at once. It is both batched and streaming. For maximum\nperformance, the caller should attempt to write relationships in as close\nto relationship sort order as possible: (resource.object_type,\nresource.object_id, relation, subject.object.object_type,\nsubject.object.object_id, subject.optional_relation). All relationships\nwritten are done so under a single transaction.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/relationships/importbulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ImportBulkRelationships is a faster path to writing a large number of\nrelationships at once. It is both batched and streaming. For maximum\nperformance, the caller should attempt to write relationships in as close\nto relationship sort order as possible: (resource.object_type,\nresource.object_id, relation, subject.object.object_type,\nsubject.object.object_id, subject.optional_relation). All relationships\nwritten are done so under a single transaction."
+        },
+        {
+          "info": {
+            "name": "ReadRelationships reads a set of the relationships matching one or more\nfilters.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/relationships/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ReadRelationships reads a set of the relationships matching one or more\nfilters."
+        },
+        {
+          "info": {
+            "name": "WriteRelationships atomically writes and/or deletes a set of specified\nrelationships. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://grpc.authzed.com/v1/relationships/write",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "WriteRelationships atomically writes and/or deletes a set of specified\nrelationships. An optional set of preconditions can be provided that must\nbe satisfied for the operation to commit."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

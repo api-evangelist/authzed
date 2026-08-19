@@ -1,0 +1,846 @@
+{
+  "item": [
+    {
+      "id": "b6665715-2e1d-4540-92b8-28a23847a91f",
+      "name": "Permissions",
+      "description": {
+        "content": "Check, expand, and lookup permissions on resources and subjects",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2b97d0ad-3ea8-4443-8143-7637271cc097",
+          "name": "CheckPermission determines for a given resource whether a subject computes\nto having a permission or is a direct member of a particular relation.",
+          "request": {
+            "name": "CheckPermission determines for a given resource whether a subject computes\nto having a permission or is a direct member of a particular relation.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "permissions",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\",\n  \"subject\": {\n    \"object\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"optionalRelation\": \"<string>\"\n  },\n  \"context\": \"<object>\",\n  \"withTracing\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6343e4d-d642-43a2-928e-4186e6318d9e",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\",\n  \"subject\": {\n    \"object\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"optionalRelation\": \"<string>\"\n  },\n  \"context\": \"<object>\",\n  \"withTracing\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checkedAt\": {\n    \"token\": \"<string>\"\n  },\n  \"permissionship\": \"PERMISSIONSHIP_UNSPECIFIED\",\n  \"partialCaveatInfo\": {\n    \"missingRequiredContext\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"debugTrace\": {\n    \"check\": {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"string\",\n      \"permissionType\": \"PERMISSION_TYPE_UNSPECIFIED\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"result\": \"PERMISSIONSHIP_UNSPECIFIED\",\n      \"caveatEvaluationInfo\": {\n        \"expression\": \"string\",\n        \"result\": \"RESULT_UNSPECIFIED\",\n        \"context\": {},\n        \"partialCaveatInfo\": {\n          \"missingRequiredContext\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"caveatName\": \"string\"\n      },\n      \"duration\": \"string\",\n      \"wasCachedResult\": true,\n      \"subProblems\": {\n        \"traces\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/CheckDebugTrace detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/CheckDebugTrace detected>\"\n          }\n        ]\n      },\n      \"optionalExpiresAt\": \"1947-02-20T07:24:53.569Z\",\n      \"traceOperationId\": \"string\",\n      \"source\": \"string\"\n    },\n    \"schemaUsed\": \"string\"\n  },\n  \"optionalExpiresAt\": \"1997-03-01T06:20:23.552Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9865f3de-68d5-4101-94e9-5c6ca683d79a",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\",\n  \"subject\": {\n    \"object\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"optionalRelation\": \"<string>\"\n  },\n  \"context\": \"<object>\",\n  \"withTracing\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4929,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee3f0046-e99b-4591-9b95-a853be23495f",
+          "name": "CheckBulkPermissions evaluates the given list of permission checks\nand returns the list of results.",
+          "request": {
+            "name": "CheckBulkPermissions evaluates the given list of permission checks\nand returns the list of results.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "permissions",
+                "checkbulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"items\": [\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"context\": \"<object>\"\n    },\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"context\": \"<object>\"\n    }\n  ],\n  \"withTracing\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64ef5496-9be9-4d3c-9ca6-919b8f1ac15e",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "checkbulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"items\": [\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"context\": \"<object>\"\n    },\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"context\": \"<object>\"\n    }\n  ],\n  \"withTracing\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checkedAt\": {\n    \"token\": \"<string>\"\n  },\n  \"pairs\": [\n    {\n      \"request\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"permission\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"context\": \"<object>\"\n      },\n      \"item\": {\n        \"permissionship\": \"PERMISSIONSHIP_UNSPECIFIED\",\n        \"partialCaveatInfo\": {\n          \"missingRequiredContext\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"debugTrace\": {\n          \"check\": {\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissionType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subject\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"caveatEvaluationInfo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"duration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"wasCachedResult\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subProblems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optionalExpiresAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"traceOperationId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"source\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"schemaUsed\": \"string\"\n        }\n      },\n      \"error\": {\n        \"code\": 6552,\n        \"message\": \"string\",\n        \"details\": [\n          {\n            \"@type\": \"string\",\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          {\n            \"@type\": \"string\",\n            \"key_0\": {},\n            \"key_1\": {}\n          }\n        ]\n      }\n    },\n    {\n      \"request\": {\n        \"resource\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"permission\": \"<string>\",\n        \"subject\": {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        \"context\": \"<object>\"\n      },\n      \"item\": {\n        \"permissionship\": \"PERMISSIONSHIP_UNSPECIFIED\",\n        \"partialCaveatInfo\": {\n          \"missingRequiredContext\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"debugTrace\": {\n          \"check\": {\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissionType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subject\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"caveatEvaluationInfo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"duration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"wasCachedResult\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subProblems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"optionalExpiresAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"traceOperationId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"source\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"schemaUsed\": \"string\"\n        }\n      },\n      \"error\": {\n        \"code\": 368,\n        \"message\": \"string\",\n        \"details\": [\n          {\n            \"@type\": \"string\",\n            \"key_0\": {}\n          },\n          {\n            \"@type\": \"string\",\n            \"key_0\": {},\n            \"key_1\": {}\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a819993a-8097-4c95-abc5-baf3ea0daeaf",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "checkbulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"items\": [\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"context\": \"<object>\"\n    },\n    {\n      \"resource\": {\n        \"objectType\": \"<string>\",\n        \"objectId\": \"<string>\"\n      },\n      \"permission\": \"<string>\",\n      \"subject\": {\n        \"object\": {\n          \"objectType\": \"<string>\",\n          \"objectId\": \"<string>\"\n        },\n        \"optionalRelation\": \"<string>\"\n      },\n      \"context\": \"<object>\"\n    }\n  ],\n  \"withTracing\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2460,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f42d830-ed26-454f-8026-4455adbf1d41",
+          "name": "ExpandPermissionTree reveals the graph structure for a resource's\npermission or relation. This RPC does not recurse infinitely deep and may\nrequire multiple calls to fully unnest a deeply nested graph.",
+          "request": {
+            "name": "ExpandPermissionTree reveals the graph structure for a resource's\npermission or relation. This RPC does not recurse infinitely deep and may\nrequire multiple calls to fully unnest a deeply nested graph.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "permissions",
+                "expand"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "612e12d8-fffe-49d2-b43c-b94bdaf6d10c",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "expand"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expandedAt\": {\n    \"token\": \"<string>\"\n  },\n  \"treeRoot\": {\n    \"intermediate\": {\n      \"operation\": \"OPERATION_UNSPECIFIED\",\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/PermissionRelationshipTree detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/PermissionRelationshipTree detected>\"\n        }\n      ]\n    },\n    \"leaf\": {\n      \"subjects\": [\n        {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        },\n        {\n          \"object\": {\n            \"objectType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"objectId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"optionalRelation\": \"<string>\"\n        }\n      ]\n    },\n    \"expandedObject\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"expandedRelation\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aca99fed-b001-4f98-a58f-6eec0a2812cc",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "expand"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2460,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02aac1d1-2f9c-40e9-a048-478ee004550b",
+          "name": "LookupResources returns all the resources of a given type that a subject\ncan access whether via a computed permission or relation membership.",
+          "request": {
+            "name": "LookupResources returns all the resources of a given type that a subject\ncan access whether via a computed permission or relation membership.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "permissions",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resourceObjectType\": \"<string>\",\n  \"permission\": \"<string>\",\n  \"subject\": {\n    \"object\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"optionalRelation\": \"<string>\"\n  },\n  \"context\": \"<object>\",\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"withDebug\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09180575-4855-4861-9fe5-845b24dfd7c2",
+              "name": "A successful response.(streaming responses)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resourceObjectType\": \"<string>\",\n  \"permission\": \"<string>\",\n  \"subject\": {\n    \"object\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"optionalRelation\": \"<string>\"\n  },\n  \"context\": \"<object>\",\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"withDebug\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"lookedUpAt\": {\n      \"token\": \"<string>\"\n    },\n    \"resourceObjectId\": \"string\",\n    \"permissionship\": \"LOOKUP_PERMISSIONSHIP_UNSPECIFIED\",\n    \"partialCaveatInfo\": {\n      \"missingRequiredContext\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"afterResultCursor\": {\n      \"token\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"code\": 6646,\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad00a8a4-7f31-481f-9cee-2ca6647219d9",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resourceObjectType\": \"<string>\",\n  \"permission\": \"<string>\",\n  \"subject\": {\n    \"object\": {\n      \"objectType\": \"<string>\",\n      \"objectId\": \"<string>\"\n    },\n    \"optionalRelation\": \"<string>\"\n  },\n  \"context\": \"<object>\",\n  \"optionalLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"withDebug\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2460,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdd8c59e-e7be-479a-aa3e-fabc15083928",
+          "name": "LookupSubjects returns all the subjects of a given type that\nhave access whether via a computed permission or relation membership.",
+          "request": {
+            "name": "LookupSubjects returns all the subjects of a given type that\nhave access whether via a computed permission or relation membership.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "permissions",
+                "subjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\",\n  \"subjectObjectType\": \"<string>\",\n  \"optionalSubjectRelation\": \"<string>\",\n  \"context\": \"<object>\",\n  \"optionalConcreteLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"wildcardOption\": \"WILDCARD_OPTION_UNSPECIFIED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "be87024f-ace4-48a8-a04f-2a31ce1692f8",
+              "name": "A successful response.(streaming responses)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "subjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\",\n  \"subjectObjectType\": \"<string>\",\n  \"optionalSubjectRelation\": \"<string>\",\n  \"context\": \"<object>\",\n  \"optionalConcreteLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"wildcardOption\": \"WILDCARD_OPTION_UNSPECIFIED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"lookedUpAt\": {\n      \"token\": \"<string>\"\n    },\n    \"subjectObjectId\": \"string\",\n    \"excludedSubjectIds\": [\n      \"string\",\n      \"string\"\n    ],\n    \"permissionship\": \"LOOKUP_PERMISSIONSHIP_UNSPECIFIED\",\n    \"partialCaveatInfo\": {\n      \"missingRequiredContext\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"subject\": {\n      \"subjectObjectId\": \"string\",\n      \"permissionship\": \"LOOKUP_PERMISSIONSHIP_UNSPECIFIED\",\n      \"partialCaveatInfo\": {\n        \"missingRequiredContext\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"excludedSubjects\": [\n      {\n        \"subjectObjectId\": \"string\",\n        \"permissionship\": \"LOOKUP_PERMISSIONSHIP_UNSPECIFIED\",\n        \"partialCaveatInfo\": {\n          \"missingRequiredContext\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      {\n        \"subjectObjectId\": \"string\",\n        \"permissionship\": \"LOOKUP_PERMISSIONSHIP_UNSPECIFIED\",\n        \"partialCaveatInfo\": {\n          \"missingRequiredContext\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      }\n    ],\n    \"afterResultCursor\": {\n      \"token\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"code\": 2034,\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      {\n        \"@type\": \"string\",\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99b0ac6a-566c-4881-b2bb-a58e99e003c7",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permissions",
+                    "subjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"consistency\": {\n    \"minimizeLatency\": \"<boolean>\",\n    \"atLeastAsFresh\": {\n      \"token\": \"<string>\"\n    },\n    \"atExactSnapshot\": {\n      \"token\": \"<string>\"\n    },\n    \"fullyConsistent\": \"<boolean>\"\n  },\n  \"resource\": {\n    \"objectType\": \"<string>\",\n    \"objectId\": \"<string>\"\n  },\n  \"permission\": \"<string>\",\n  \"subjectObjectType\": \"<string>\",\n  \"optionalSubjectRelation\": \"<string>\",\n  \"context\": \"<object>\",\n  \"optionalConcreteLimit\": \"<long>\",\n  \"optionalCursor\": {\n    \"token\": \"<string>\"\n  },\n  \"wildcardOption\": \"WILDCARD_OPTION_UNSPECIFIED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2460,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://grpc.authzed.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f0f79fcd-b07a-4500-a74f-9c464fb802c7",
+    "name": "Authzed SpiceDB Experimental Permissions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.\n\nContact Support:\n Name: Authzed, Inc.\n Email: support@authzed.com",
+      "type": "text/plain"
+    }
+  }
+}
