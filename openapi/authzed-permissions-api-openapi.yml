@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Authzed SpiceDB Experimental Permissions API
+  title: Authzed SpiceDB Permissions API
   description: SpiceDB Permissions API — gRPC and HTTP/JSON interfaces for writing schemas, managing relationship tuples, and executing permission checks using a Zanzibar-inspired graph model. Supports CheckPermission, LookupResources, LookupSubjects, WriteRelationships, ReadRelationships, DeleteRelationships, WriteSchema, ReadSchema, and streaming Watch operations.
   version: '1.0'
   contact:
@@ -24,9 +24,7 @@ paths:
   /v1/permissions/check:
     post:
       operationId: PermissionsService_CheckPermission
-      summary: 'CheckPermission determines for a given resource whether a subject computes
-
-        to having a permission or is a direct member of a particular relation.'
+      summary: CheckPermission determines for a given resource whether a subject computes to…
       tags:
       - Permissions
       security:
@@ -53,9 +51,7 @@ paths:
   /v1/permissions/checkbulk:
     post:
       operationId: PermissionsService_CheckBulkPermissions
-      summary: 'CheckBulkPermissions evaluates the given list of permission checks
-
-        and returns the list of results.'
+      summary: CheckBulkPermissions evaluates the given list of permission checks and returns…
       tags:
       - Permissions
       security:
@@ -82,11 +78,7 @@ paths:
   /v1/permissions/expand:
     post:
       operationId: PermissionsService_ExpandPermissionTree
-      summary: 'ExpandPermissionTree reveals the graph structure for a resource''s
-
-        permission or relation. This RPC does not recurse infinitely deep and may
-
-        require multiple calls to fully unnest a deeply nested graph.'
+      summary: ExpandPermissionTree reveals the graph structure for a resource's permission or…
       tags:
       - Permissions
       security:
@@ -113,9 +105,7 @@ paths:
   /v1/permissions/resources:
     post:
       operationId: PermissionsService_LookupResources
-      summary: 'LookupResources returns all the resources of a given type that a subject
-
-        can access whether via a computed permission or relation membership.'
+      summary: LookupResources returns all the resources of a given type that a subject can…
       tags:
       - Permissions
       security:
@@ -148,9 +138,7 @@ paths:
   /v1/permissions/subjects:
     post:
       operationId: PermissionsService_LookupSubjects
-      summary: 'LookupSubjects returns all the subjects of a given type that
-
-        have access whether via a computed permission or relation membership.'
+      summary: LookupSubjects returns all the subjects of a given type that have access…
       tags:
       - Permissions
       security:
@@ -182,14 +170,153 @@ paths:
                 $ref: '#/components/schemas/Status'
 components:
   schemas:
-    SubProblems:
+    ExpandPermissionTreeResponse:
       type: object
       properties:
-        traces:
+        expandedAt:
+          $ref: '#/components/schemas/ZedToken'
+        treeRoot:
+          $ref: '#/components/schemas/PermissionRelationshipTree'
+          description: 'tree_root is a tree structure whose leaf nodes are subjects, and
+
+            intermediate nodes represent the various operations (union, intersection,
+
+            exclusion) to reach those subjects.'
+    CheckBulkPermissionsRequestItem:
+      type: object
+      properties:
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+        permission:
+          type: string
+        subject:
+          $ref: '#/components/schemas/SubjectReference'
+        context:
+          type: object
+    DirectSubjectSet:
+      type: object
+      properties:
+        subjects:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/CheckDebugTrace'
+            $ref: '#/components/schemas/SubjectReference'
+      description: DirectSubjectSet is a subject set which is simply a collection of subjects.
+    CheckBulkPermissionsResponse:
+      type: object
+      properties:
+        checkedAt:
+          $ref: '#/components/schemas/ZedToken'
+        pairs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/CheckBulkPermissionsPair'
+    PermissionType:
+      type: string
+      enum:
+      - PERMISSION_TYPE_UNSPECIFIED
+      - PERMISSION_TYPE_RELATION
+      - PERMISSION_TYPE_PERMISSION
+      default: PERMISSION_TYPE_UNSPECIFIED
+    AlgebraicSubjectSet.Operation:
+      type: string
+      enum:
+      - OPERATION_UNSPECIFIED
+      - OPERATION_UNION
+      - OPERATION_INTERSECTION
+      - OPERATION_EXCLUSION
+      default: OPERATION_UNSPECIFIED
+    Consistency:
+      type: object
+      properties:
+        minimizeLatency:
+          type: boolean
+          description: 'minimize_latency indicates that the latency for the call should be
+
+            minimized by having the system select the fastest snapshot available.'
+        atLeastAsFresh:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_least_as_fresh indicates that all data used in the API call must be
+
+            *at least as fresh* as that found in the ZedToken; more recent data might
+
+            be used if available or faster.'
+        atExactSnapshot:
+          $ref: '#/components/schemas/ZedToken'
+          description: 'at_exact_snapshot indicates that all data used in the API call must be
+
+            *at the given* snapshot in time; if the snapshot is no longer available,
+
+            an error will be returned to the caller.'
+        fullyConsistent:
+          type: boolean
+          description: 'fully_consistent indicates that all data used in the API call *must* be
+
+            at the most recent snapshot found.
+
+
+            NOTE: using this method can be *quite slow*, so unless there is a need to
+
+            do so, it is recommended to use `at_least_as_fresh` with a stored
+
+            ZedToken.'
+      description: 'Consistency will define how a request is handled by the backend.
+
+        By defining a consistency requirement, and a token at which those
+
+        requirements should be applied, where applicable.'
+    ResolvedSubject:
+      type: object
+      properties:
+        subjectObjectId:
+          type: string
+          description: 'subject_object_id is the Object ID of the subject found. May be a `*` if
+
+            a wildcard was found.'
+        permissionship:
+          $ref: '#/components/schemas/LookupPermissionship'
+          title: permissionship indicates whether the response was partially evaluated or not
+        partialCaveatInfo:
+          $ref: '#/components/schemas/PartialCaveatInfo'
+          title: partial_caveat_info holds information of a partially-evaluated caveated response
+      description: ResolvedSubject is a single subject resolved within LookupSubjects.
+    AlgebraicSubjectSet:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/AlgebraicSubjectSet.Operation'
+        children:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/PermissionRelationshipTree'
+      description: 'AlgebraicSubjectSet is a subject set which is computed based on applying the
+
+        specified operation to the operands according to the algebra of sets.
+
+
+        UNION is a logical set containing the subject members from all operands.
+
+
+        INTERSECTION is a logical set containing only the subject members which are
+
+        present in all operands.
+
+
+        EXCLUSION is a logical set containing only the subject members which are
+
+        present in the first operand, and none of the other operands.'
+    CheckBulkPermissionsResponseItem:
+      type: object
+      properties:
+        permissionship:
+          $ref: '#/components/schemas/CheckPermissionResponse.Permissionship'
+        partialCaveatInfo:
+          $ref: '#/components/schemas/PartialCaveatInfo'
+        debugTrace:
+          $ref: '#/components/schemas/DebugInformation'
+          description: debug_trace is the debugging trace of this check, if requested.
     CheckBulkPermissionsRequest:
       type: object
       properties:
@@ -215,6 +342,58 @@ components:
         The ordering of the items in the response is maintained in the response.
 
         Checks with the same subject/permission will automatically be batched for performance optimization.'
+    ExpandPermissionTreeRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+          description: resource is the resource over which to run the expansion.
+        permission:
+          type: string
+          description: 'permission is the name of the permission or relation over which to run the
+
+            expansion for the resource.'
+      description: 'ExpandPermissionTreeRequest returns a tree representing the expansion of all
+
+        relationships found accessible from a permission or relation on a particular
+
+        resource.
+
+
+        ExpandPermissionTreeRequest is typically used to determine the full set of
+
+        subjects with a permission, along with the relationships that grant said
+
+        access.'
+    PermissionRelationshipTree:
+      type: object
+      properties:
+        intermediate:
+          $ref: '#/components/schemas/AlgebraicSubjectSet'
+        leaf:
+          $ref: '#/components/schemas/DirectSubjectSet'
+        expandedObject:
+          $ref: '#/components/schemas/ObjectReference'
+        expandedRelation:
+          type: string
+      description: 'PermissionRelationshipTree is used for representing a tree of a resource and
+
+        its permission relationships with other objects.'
+    ZedToken:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'ZedToken represents a point in time, or a "revision" in SpiceDB.
+
+        It is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)
+
+        and can also be used to start watching for changes from a specific point in time.
+
+
+        See the authzed.api.v1.Consistency message for more information.'
     Any:
       type: object
       properties:
@@ -223,29 +402,95 @@ components:
           description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
       additionalProperties: {}
       description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
-    LookupResourcesResponse:
+    LookupPermissionship:
+      type: string
+      enum:
+      - LOOKUP_PERMISSIONSHIP_UNSPECIFIED
+      - LOOKUP_PERMISSIONSHIP_HAS_PERMISSION
+      - LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION
+      default: LOOKUP_PERMISSIONSHIP_UNSPECIFIED
+      description: "- LOOKUP_PERMISSIONSHIP_UNSPECIFIED: LOOKUP_PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or\nrelied upon. Servers should not return this value.\n - LOOKUP_PERMISSIONSHIP_HAS_PERMISSION: LOOKUP_PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has permission\non the resource with no missing caveat context.\n - LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION: LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has\npermission on the resource, but only if a caveat condition is met. The\n`partial_caveat_info` field in the response should contain the missing context\nfields that must be provided to fully evaluate the caveat."
+      title: LookupPermissionship represents whether a Lookup response was partially evaluated or not
+    PartialCaveatInfo:
       type: object
       properties:
-        lookedUpAt:
-          $ref: '#/components/schemas/ZedToken'
-          description: looked_up_at is the ZedToken at which the resource was found.
-        resourceObjectId:
+        missingRequiredContext:
+          type: array
+          items:
+            type: string
+          title: 'missing_required_context is a list of one or more fields that were missing and prevented caveats
+
+            from being fully evaluated'
+      title: 'PartialCaveatInfo carries information necessary for the client to take action
+
+        in the event a response contains a partially evaluated caveat'
+    Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'The status code, which should be an enum value of
+
+            [google.rpc.Code][google.rpc.Code].'
+        message:
           type: string
-          description: resource_object_id is the object ID of the found resource.
-        permissionship:
-          $ref: '#/components/schemas/LookupPermissionship'
-          title: permissionship indicates whether the response was partially evaluated or not
-        partialCaveatInfo:
-          $ref: '#/components/schemas/PartialCaveatInfo'
-          title: partial_caveat_info holds information of a partially-evaluated caveated response
-        afterResultCursor:
-          $ref: '#/components/schemas/v1.Cursor'
-          description: 'after_result_cursor holds a cursor that can be used to resume the LookupResources stream after this
+          description: 'A developer-facing error message, which should be in English. Any
 
-            result.'
-      description: 'LookupResourcesResponse contains a single matching resource object ID for the
+            user-facing error message should be localized and sent in the
 
-        requested object type, permission, and subject.'
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Any'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    CheckPermissionRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+          description: resource is the resource on which to check the permission or relation.
+        permission:
+          type: string
+          description: 'permission is the name of the permission (or relation) on which to execute
+
+            the check.'
+        subject:
+          $ref: '#/components/schemas/SubjectReference'
+          description: subject is the subject that will be checked for the permission or relation.
+        context:
+          type: object
+          title: context consists of named values that are injected into the caveat evaluation context
+        withTracing:
+          type: boolean
+          description: 'with_tracing, if true, indicates that the response should include a debug trace.
+
+            This can be useful for debugging and performance analysis, but adds a small amount
+
+            of compute overhead to the request.'
+      description: 'CheckPermissionRequest issues a check on whether a subject has a permission
+
+        or is a member of a relation, on a specific resource.'
     CheckPermissionResponse:
       type: object
       properties:
@@ -279,82 +524,161 @@ components:
           description: 'optional_expires_at is the time at which at least one of the relationships used to
 
             compute this result, expires (if any). This is *not* related to the caching window.'
-    ResolvedSubject:
+    ObjectReference:
       type: object
       properties:
-        subjectObjectId:
+        objectType:
           type: string
-          description: 'subject_object_id is the Object ID of the subject found. May be a `*` if
-
-            a wildcard was found.'
+        objectId:
+          type: string
+      description: ObjectReference is used to refer to a specific object in the system.
+    LookupResourcesResponse:
+      type: object
+      properties:
+        lookedUpAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: looked_up_at is the ZedToken at which the resource was found.
+        resourceObjectId:
+          type: string
+          description: resource_object_id is the object ID of the found resource.
         permissionship:
           $ref: '#/components/schemas/LookupPermissionship'
           title: permissionship indicates whether the response was partially evaluated or not
         partialCaveatInfo:
           $ref: '#/components/schemas/PartialCaveatInfo'
           title: partial_caveat_info holds information of a partially-evaluated caveated response
-      description: ResolvedSubject is a single subject resolved within LookupSubjects.
-    PermissionType:
-      type: string
-      enum:
-      - PERMISSION_TYPE_UNSPECIFIED
-      - PERMISSION_TYPE_RELATION
-      - PERMISSION_TYPE_PERMISSION
-      default: PERMISSION_TYPE_UNSPECIFIED
-    LookupSubjectsResponse:
-      type: object
-      properties:
-        lookedUpAt:
-          $ref: '#/components/schemas/ZedToken'
-        subjectObjectId:
-          type: string
-          title: 'subject_object_id is the Object ID of the subject found. May be a `*` if
-
-            a wildcard was found.
-
-            deprecated: use `subject`'
-        excludedSubjectIds:
-          type: array
-          items:
-            type: string
-          title: 'excluded_subject_ids are the Object IDs of the subjects excluded. This list
-
-            will only contain object IDs if `subject_object_id` is a wildcard (`*`) and
-
-            will only be populated if exclusions exist from the wildcard.
-
-            deprecated: use `excluded_subjects`'
-        permissionship:
-          $ref: '#/components/schemas/LookupPermissionship'
-          title: 'permissionship indicates whether the response was partially evaluated or not
-
-            deprecated: use `subject.permissionship`'
-        partialCaveatInfo:
-          $ref: '#/components/schemas/PartialCaveatInfo'
-          title: 'partial_caveat_info holds information of a partially-evaluated caveated response
-
-            deprecated: use `subject.partial_caveat_info`'
-        subject:
-          $ref: '#/components/schemas/ResolvedSubject'
-          description: subject is the subject found, along with its permissionship.
-        excludedSubjects:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ResolvedSubject'
-          description: 'excluded_subjects are the subjects excluded. This list
-
-            will only contain subjects if `subject.subject_object_id` is a wildcard (`*`) and
-
-            will only be populated if exclusions exist from the wildcard.'
         afterResultCursor:
           $ref: '#/components/schemas/v1.Cursor'
-          description: 'after_result_cursor holds a cursor that can be used to resume the LookupSubjects stream after this
+          description: 'after_result_cursor holds a cursor that can be used to resume the LookupResources stream after this
 
             result.'
-      description: 'LookupSubjectsResponse contains a single matching subject object ID for the
+      description: 'LookupResourcesResponse contains a single matching resource object ID for the
 
-        requested subject object type on the permission or relation.'
+        requested object type, permission, and subject.'
+    CheckBulkPermissionsPair:
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/CheckBulkPermissionsRequestItem'
+        item:
+          $ref: '#/components/schemas/CheckBulkPermissionsResponseItem'
+        error:
+          $ref: '#/components/schemas/Status'
+    SubjectReference:
+      type: object
+      properties:
+        object:
+          $ref: '#/components/schemas/ObjectReference'
+        optionalRelation:
+          type: string
+      title: 'SubjectReference is used for referring to the subject portion of a
+
+        Relationship. The relation component is optional and is used for defining a
+
+        sub-relation on the subject, e.g. group:123#members'
+    v1.Cursor:
+      type: object
+      properties:
+        token:
+          type: string
+      description: 'Cursor is used to provide resumption of listing between calls to APIs
+
+        such as LookupResources.'
+    CaveatEvalInfo:
+      type: object
+      properties:
+        expression:
+          type: string
+          description: expression is the expression that was evaluated.
+        result:
+          $ref: '#/components/schemas/Result'
+          description: result is the result of the evaluation.
+        context:
+          type: object
+          description: context consists of any named values that were used for evaluating the caveat expression.
+        partialCaveatInfo:
+          $ref: '#/components/schemas/PartialCaveatInfo'
+          description: partial_caveat_info holds information of a partially-evaluated caveated response, if applicable.
+        caveatName:
+          type: string
+          description: caveat_name is the name of the caveat that was executed, if applicable.
+      description: CaveatEvalInfo holds information about a caveat expression that was evaluated.
+    Result:
+      type: string
+      enum:
+      - RESULT_UNSPECIFIED
+      - RESULT_UNEVALUATED
+      - RESULT_FALSE
+      - RESULT_TRUE
+      - RESULT_MISSING_SOME_CONTEXT
+      default: RESULT_UNSPECIFIED
+    DebugInformation:
+      type: object
+      properties:
+        check:
+          $ref: '#/components/schemas/CheckDebugTrace'
+          description: check holds debug information about a check request.
+        schemaUsed:
+          type: string
+          description: schema_used holds the schema used for the request.
+      description: 'DebugInformation defines debug information returned by an API call in a footer when
+
+        requested with a specific debugging header.
+
+
+        The specific debug information returned will depend on the type of the API call made.
+
+
+        See the github.com/authzed/authzed-go project for the specific header and footer names.'
+    LookupSubjectsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        resource:
+          $ref: '#/components/schemas/ObjectReference'
+          description: 'resource is the resource for which all matching subjects for the permission
+
+            or relation will be returned.'
+        permission:
+          type: string
+          description: 'permission is the name of the permission (or relation) for which to find
+
+            the subjects.'
+        subjectObjectType:
+          type: string
+          description: 'subject_object_type is the type of subject object for which the IDs will
+
+            be returned.'
+        optionalSubjectRelation:
+          type: string
+          description: optional_subject_relation is the optional relation for the subject.
+        context:
+          type: object
+          title: context consists of named values that are injected into the caveat evaluation context
+        optionalConcreteLimit:
+          type: integer
+          format: int64
+          description: 'optional_concrete_limit is currently unimplemented for LookupSubjects
+
+            and will return an error as of SpiceDB version 1.40.1. This will
+
+            be implemented in a future version of SpiceDB.'
+        optionalCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+          description: 'optional_cursor is not currently supported for LookupSubjects and this
+
+            field will be ignored. Cursoring support will be added in a future version.'
+        wildcardOption:
+          $ref: '#/components/schemas/WildcardOption'
+          description: 'wildcard_option specifies whether wildcards should be returned by LookupSubjects.
+
+            For backwards compatibility, defaults to WILDCARD_OPTION_INCLUDE_WILDCARDS if unspecified.'
+      description: 'LookupSubjectsRequest performs a lookup of all subjects of a particular
+
+        kind for which the subject has the specified permission or the relation in
+
+        which the subject exists, streaming back the IDs of those subjects.'
     CheckDebugTrace:
       type: object
       properties:
@@ -424,186 +748,14 @@ components:
       description: 'CheckDebugTrace is a recursive trace of the requests made for resolving a CheckPermission
 
         API call.'
-    ZedToken:
+    SubProblems:
       type: object
       properties:
-        token:
-          type: string
-      description: 'ZedToken represents a point in time, or a "revision" in SpiceDB.
-
-        It is used to provide causality metadata between Write and read requests (Check, ReadRelationships, LookupResources, LookupSubjects)
-
-        and can also be used to start watching for changes from a specific point in time.
-
-
-        See the authzed.api.v1.Consistency message for more information.'
-    v1.Cursor:
-      type: object
-      properties:
-        token:
-          type: string
-      description: 'Cursor is used to provide resumption of listing between calls to APIs
-
-        such as LookupResources.'
-    Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: 'The status code, which should be an enum value of
-
-            [google.rpc.Code][google.rpc.Code].'
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
-
-            by the client.'
-        details:
+        traces:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/Any'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    Result:
-      type: string
-      enum:
-      - RESULT_UNSPECIFIED
-      - RESULT_UNEVALUATED
-      - RESULT_FALSE
-      - RESULT_TRUE
-      - RESULT_MISSING_SOME_CONTEXT
-      default: RESULT_UNSPECIFIED
-    AlgebraicSubjectSet:
-      type: object
-      properties:
-        operation:
-          $ref: '#/components/schemas/AlgebraicSubjectSet.Operation'
-        children:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/PermissionRelationshipTree'
-      description: 'AlgebraicSubjectSet is a subject set which is computed based on applying the
-
-        specified operation to the operands according to the algebra of sets.
-
-
-        UNION is a logical set containing the subject members from all operands.
-
-
-        INTERSECTION is a logical set containing only the subject members which are
-
-        present in all operands.
-
-
-        EXCLUSION is a logical set containing only the subject members which are
-
-        present in the first operand, and none of the other operands.'
-    ObjectReference:
-      type: object
-      properties:
-        objectType:
-          type: string
-        objectId:
-          type: string
-      description: ObjectReference is used to refer to a specific object in the system.
-    WildcardOption:
-      type: string
-      enum:
-      - WILDCARD_OPTION_UNSPECIFIED
-      - WILDCARD_OPTION_INCLUDE_WILDCARDS
-      - WILDCARD_OPTION_EXCLUDE_WILDCARDS
-      default: WILDCARD_OPTION_UNSPECIFIED
-    ExpandPermissionTreeRequest:
-      type: object
-      properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        resource:
-          $ref: '#/components/schemas/ObjectReference'
-          description: resource is the resource over which to run the expansion.
-        permission:
-          type: string
-          description: 'permission is the name of the permission or relation over which to run the
-
-            expansion for the resource.'
-      description: 'ExpandPermissionTreeRequest returns a tree representing the expansion of all
-
-        relationships found accessible from a permission or relation on a particular
-
-        resource.
-
-
-        ExpandPermissionTreeRequest is typically used to determine the full set of
-
-        subjects with a permission, along with the relationships that grant said
-
-        access.'
-    CaveatEvalInfo:
-      type: object
-      properties:
-        expression:
-          type: string
-          description: expression is the expression that was evaluated.
-        result:
-          $ref: '#/components/schemas/Result'
-          description: result is the result of the evaluation.
-        context:
-          type: object
-          description: context consists of any named values that were used for evaluating the caveat expression.
-        partialCaveatInfo:
-          $ref: '#/components/schemas/PartialCaveatInfo'
-          description: partial_caveat_info holds information of a partially-evaluated caveated response, if applicable.
-        caveatName:
-          type: string
-          description: caveat_name is the name of the caveat that was executed, if applicable.
-      description: CaveatEvalInfo holds information about a caveat expression that was evaluated.
-    DebugInformation:
-      type: object
-      properties:
-        check:
-          $ref: '#/components/schemas/CheckDebugTrace'
-          description: check holds debug information about a check request.
-        schemaUsed:
-          type: string
-          description: schema_used holds the schema used for the request.
-      description: 'DebugInformation defines debug information returned by an API call in a footer when
-
-        requested with a specific debugging header.
-
-
-        The specific debug information returned will depend on the type of the API call made.
-
-
-        See the github.com/authzed/authzed-go project for the specific header and footer names.'
-    LookupPermissionship:
-      type: string
-      enum:
-      - LOOKUP_PERMISSIONSHIP_UNSPECIFIED
-      - LOOKUP_PERMISSIONSHIP_HAS_PERMISSION
-      - LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION
-      default: LOOKUP_PERMISSIONSHIP_UNSPECIFIED
-      description: "- LOOKUP_PERMISSIONSHIP_UNSPECIFIED: LOOKUP_PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or\nrelied upon. Servers should not return this value.\n - LOOKUP_PERMISSIONSHIP_HAS_PERMISSION: LOOKUP_PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has permission\non the resource with no missing caveat context.\n - LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION: LOOKUP_PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has\npermission on the resource, but only if a caveat condition is met. The\n`partial_caveat_info` field in the response should contain the missing context\nfields that must be provided to fully evaluate the caveat."
-      title: LookupPermissionship represents whether a Lookup response was partially evaluated or not
+            $ref: '#/components/schemas/CheckDebugTrace'
     CheckPermissionResponse.Permissionship:
       type: string
       enum:
@@ -613,60 +765,60 @@ components:
       - PERMISSIONSHIP_CONDITIONAL_PERMISSION
       default: PERMISSIONSHIP_UNSPECIFIED
       description: " - PERMISSIONSHIP_UNSPECIFIED: PERMISSIONSHIP_UNSPECIFIED is the default value and should not be used or\nrelied upon. Servers should not return this value.\n - PERMISSIONSHIP_NO_PERMISSION: PERMISSIONSHIP_NO_PERMISSION indicates that the subject does not have the\nrequested permission on the resource.\n - PERMISSIONSHIP_HAS_PERMISSION: PERMISSIONSHIP_HAS_PERMISSION indicates that the subject has the requested\npermission on the resource.\n - PERMISSIONSHIP_CONDITIONAL_PERMISSION: PERMISSIONSHIP_CONDITIONAL_PERMISSION indicates that the subject has the\nrequested permission on the resource, but only if a caveat condition is met.\nThe `partial_caveat_info` field in the response should contain the missing\ncontext fields that must be provided to fully evaluate the caveat."
-    PartialCaveatInfo:
+    LookupSubjectsResponse:
       type: object
       properties:
-        missingRequiredContext:
+        lookedUpAt:
+          $ref: '#/components/schemas/ZedToken'
+        subjectObjectId:
+          type: string
+          title: 'subject_object_id is the Object ID of the subject found. May be a `*` if
+
+            a wildcard was found.
+
+            deprecated: use `subject`'
+        excludedSubjectIds:
           type: array
           items:
             type: string
-          title: 'missing_required_context is a list of one or more fields that were missing and prevented caveats
+          title: 'excluded_subject_ids are the Object IDs of the subjects excluded. This list
 
-            from being fully evaluated'
-      title: 'PartialCaveatInfo carries information necessary for the client to take action
+            will only contain object IDs if `subject_object_id` is a wildcard (`*`) and
 
-        in the event a response contains a partially evaluated caveat'
-    SubjectReference:
-      type: object
-      properties:
-        object:
-          $ref: '#/components/schemas/ObjectReference'
-        optionalRelation:
-          type: string
-      title: 'SubjectReference is used for referring to the subject portion of a
+            will only be populated if exclusions exist from the wildcard.
 
-        Relationship. The relation component is optional and is used for defining a
+            deprecated: use `excluded_subjects`'
+        permissionship:
+          $ref: '#/components/schemas/LookupPermissionship'
+          title: 'permissionship indicates whether the response was partially evaluated or not
 
-        sub-relation on the subject, e.g. group:123#members'
-    CheckPermissionRequest:
-      type: object
-      properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        resource:
-          $ref: '#/components/schemas/ObjectReference'
-          description: resource is the resource on which to check the permission or relation.
-        permission:
-          type: string
-          description: 'permission is the name of the permission (or relation) on which to execute
+            deprecated: use `subject.permissionship`'
+        partialCaveatInfo:
+          $ref: '#/components/schemas/PartialCaveatInfo'
+          title: 'partial_caveat_info holds information of a partially-evaluated caveated response
 
-            the check.'
+            deprecated: use `subject.partial_caveat_info`'
         subject:
-          $ref: '#/components/schemas/SubjectReference'
-          description: subject is the subject that will be checked for the permission or relation.
-        context:
-          type: object
-          title: context consists of named values that are injected into the caveat evaluation context
-        withTracing:
-          type: boolean
-          description: 'with_tracing, if true, indicates that the response should include a debug trace.
+          $ref: '#/components/schemas/ResolvedSubject'
+          description: subject is the subject found, along with its permissionship.
+        excludedSubjects:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ResolvedSubject'
+          description: 'excluded_subjects are the subjects excluded. This list
 
-            This can be useful for debugging and performance analysis, but adds a small amount
+            will only contain subjects if `subject.subject_object_id` is a wildcard (`*`) and
 
-            of compute overhead to the request.'
-      description: 'CheckPermissionRequest issues a check on whether a subject has a permission
+            will only be populated if exclusions exist from the wildcard.'
+        afterResultCursor:
+          $ref: '#/components/schemas/v1.Cursor'
+          description: 'after_result_cursor holds a cursor that can be used to resume the LookupSubjects stream after this
 
-        or is a member of a relation, on a specific resource.'
+            result.'
+      description: 'LookupSubjectsResponse contains a single matching subject object ID for the
+
+        requested subject object type on the permission or relation.'
     CheckDebugTrace.Permissionship:
       type: string
       enum:
@@ -675,6 +827,13 @@ components:
       - PERMISSIONSHIP_HAS_PERMISSION
       - PERMISSIONSHIP_CONDITIONAL_PERMISSION
       default: PERMISSIONSHIP_UNSPECIFIED
+    WildcardOption:
+      type: string
+      enum:
+      - WILDCARD_OPTION_UNSPECIFIED
+      - WILDCARD_OPTION_INCLUDE_WILDCARDS
+      - WILDCARD_OPTION_EXCLUDE_WILDCARDS
+      default: WILDCARD_OPTION_UNSPECIFIED
     LookupResourcesRequest:
       type: object
       properties:
@@ -725,177 +884,6 @@ components:
         kind on which the subject has the specified permission or the relation in
 
         which the subject exists, streaming back the IDs of those resources.'
-    CheckBulkPermissionsResponseItem:
-      type: object
-      properties:
-        permissionship:
-          $ref: '#/components/schemas/CheckPermissionResponse.Permissionship'
-        partialCaveatInfo:
-          $ref: '#/components/schemas/PartialCaveatInfo'
-        debugTrace:
-          $ref: '#/components/schemas/DebugInformation'
-          description: debug_trace is the debugging trace of this check, if requested.
-    AlgebraicSubjectSet.Operation:
-      type: string
-      enum:
-      - OPERATION_UNSPECIFIED
-      - OPERATION_UNION
-      - OPERATION_INTERSECTION
-      - OPERATION_EXCLUSION
-      default: OPERATION_UNSPECIFIED
-    DirectSubjectSet:
-      type: object
-      properties:
-        subjects:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/SubjectReference'
-      description: DirectSubjectSet is a subject set which is simply a collection of subjects.
-    CheckBulkPermissionsPair:
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/CheckBulkPermissionsRequestItem'
-        item:
-          $ref: '#/components/schemas/CheckBulkPermissionsResponseItem'
-        error:
-          $ref: '#/components/schemas/Status'
-    LookupSubjectsRequest:
-      type: object
-      properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        resource:
-          $ref: '#/components/schemas/ObjectReference'
-          description: 'resource is the resource for which all matching subjects for the permission
-
-            or relation will be returned.'
-        permission:
-          type: string
-          description: 'permission is the name of the permission (or relation) for which to find
-
-            the subjects.'
-        subjectObjectType:
-          type: string
-          description: 'subject_object_type is the type of subject object for which the IDs will
-
-            be returned.'
-        optionalSubjectRelation:
-          type: string
-          description: optional_subject_relation is the optional relation for the subject.
-        context:
-          type: object
-          title: context consists of named values that are injected into the caveat evaluation context
-        optionalConcreteLimit:
-          type: integer
-          format: int64
-          description: 'optional_concrete_limit is currently unimplemented for LookupSubjects
-
-            and will return an error as of SpiceDB version 1.40.1. This will
-
-            be implemented in a future version of SpiceDB.'
-        optionalCursor:
-          $ref: '#/components/schemas/v1.Cursor'
-          description: 'optional_cursor is not currently supported for LookupSubjects and this
-
-            field will be ignored. Cursoring support will be added in a future version.'
-        wildcardOption:
-          $ref: '#/components/schemas/WildcardOption'
-          description: 'wildcard_option specifies whether wildcards should be returned by LookupSubjects.
-
-            For backwards compatibility, defaults to WILDCARD_OPTION_INCLUDE_WILDCARDS if unspecified.'
-      description: 'LookupSubjectsRequest performs a lookup of all subjects of a particular
-
-        kind for which the subject has the specified permission or the relation in
-
-        which the subject exists, streaming back the IDs of those subjects.'
-    CheckBulkPermissionsRequestItem:
-      type: object
-      properties:
-        resource:
-          $ref: '#/components/schemas/ObjectReference'
-        permission:
-          type: string
-        subject:
-          $ref: '#/components/schemas/SubjectReference'
-        context:
-          type: object
-    Consistency:
-      type: object
-      properties:
-        minimizeLatency:
-          type: boolean
-          description: 'minimize_latency indicates that the latency for the call should be
-
-            minimized by having the system select the fastest snapshot available.'
-        atLeastAsFresh:
-          $ref: '#/components/schemas/ZedToken'
-          description: 'at_least_as_fresh indicates that all data used in the API call must be
-
-            *at least as fresh* as that found in the ZedToken; more recent data might
-
-            be used if available or faster.'
-        atExactSnapshot:
-          $ref: '#/components/schemas/ZedToken'
-          description: 'at_exact_snapshot indicates that all data used in the API call must be
-
-            *at the given* snapshot in time; if the snapshot is no longer available,
-
-            an error will be returned to the caller.'
-        fullyConsistent:
-          type: boolean
-          description: 'fully_consistent indicates that all data used in the API call *must* be
-
-            at the most recent snapshot found.
-
-
-            NOTE: using this method can be *quite slow*, so unless there is a need to
-
-            do so, it is recommended to use `at_least_as_fresh` with a stored
-
-            ZedToken.'
-      description: 'Consistency will define how a request is handled by the backend.
-
-        By defining a consistency requirement, and a token at which those
-
-        requirements should be applied, where applicable.'
-    ExpandPermissionTreeResponse:
-      type: object
-      properties:
-        expandedAt:
-          $ref: '#/components/schemas/ZedToken'
-        treeRoot:
-          $ref: '#/components/schemas/PermissionRelationshipTree'
-          description: 'tree_root is a tree structure whose leaf nodes are subjects, and
-
-            intermediate nodes represent the various operations (union, intersection,
-
-            exclusion) to reach those subjects.'
-    CheckBulkPermissionsResponse:
-      type: object
-      properties:
-        checkedAt:
-          $ref: '#/components/schemas/ZedToken'
-        pairs:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/CheckBulkPermissionsPair'
-    PermissionRelationshipTree:
-      type: object
-      properties:
-        intermediate:
-          $ref: '#/components/schemas/AlgebraicSubjectSet'
-        leaf:
-          $ref: '#/components/schemas/DirectSubjectSet'
-        expandedObject:
-          $ref: '#/components/schemas/ObjectReference'
-        expandedRelation:
-          type: string
-      description: 'PermissionRelationshipTree is used for representing a tree of a resource and
-
-        its permission relationships with other objects.'
   securitySchemes:
     BearerAuth:
       type: http

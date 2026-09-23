@@ -1,11 +1,7 @@
 {
   "provider": "authzed",
   "sources": [
-    "authzed-experimental-api-openapi.yml",
-    "authzed-permissions-api-openapi.yml",
-    "authzed-relationships-api-openapi.yml",
-    "authzed-schema-api-openapi.yml",
-    "authzed-watch-api-openapi.yml"
+    "_original/authzed-spicedb-permissions-api-openapi.yml"
   ],
   "outputs": [
     "authzed-experimental-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "authzed-spicedb-permissions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "authzed-experimental-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authzed-permissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authzed-relationships-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authzed-schema-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "authzed-watch-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
