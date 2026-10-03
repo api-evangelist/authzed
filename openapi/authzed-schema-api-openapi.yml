@@ -190,22 +190,35 @@ paths:
                 $ref: '#/components/schemas/Status'
 components:
   schemas:
-    ReflectionCaveatParameterTypeChange:
+    DiffSchemaResponse:
       type: object
       properties:
-        parameter:
-          $ref: '#/components/schemas/ReflectionCaveatParameter'
-        previousType:
-          type: string
-    DependentRelationsRequest:
+        diffs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionSchemaDiff'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    DependentRelationsResponse:
       type: object
       properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        definitionName:
-          type: string
-        permissionName:
-          type: string
+        relations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionRelationReference'
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    ReflectionRelationSubjectTypeChange:
+      type: object
+      properties:
+        relation:
+          $ref: '#/components/schemas/ReflectionRelation'
+        changedSubjectType:
+          $ref: '#/components/schemas/ReflectionTypeReference'
     ComputablePermissionsRequest:
       type: object
       properties:
@@ -222,26 +235,6 @@ components:
             for the permissions returned.
 
             If not specified, will be ignored.'
-    ReflectionRelationSubjectTypeChange:
-      type: object
-      properties:
-        relation:
-          $ref: '#/components/schemas/ReflectionRelation'
-        changedSubjectType:
-          $ref: '#/components/schemas/ReflectionTypeReference'
-    ReflectionCaveatParameter:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-          title: 'type is the type of the parameter. Will be a string representing the
-
-            type, e.g. `int` or `list<string>`'
-        parentCaveatName:
-          type: string
-      description: ReflectionCaveatParameter is the representation of a parameter in a caveat.
     Consistency:
       type: object
       properties:
@@ -281,32 +274,6 @@ components:
         By defining a consistency requirement, and a token at which those
 
         requirements should be applied, where applicable.'
-    ReflectionRelation:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-        parentDefinitionName:
-          type: string
-        subjectTypes:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionTypeReference'
-      description: ReflectionRelation is the representation of a relation in the schema.
-    DependentRelationsResponse:
-      type: object
-      properties:
-        relations:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionRelationReference'
-        readAt:
-          $ref: '#/components/schemas/ZedToken'
-          description: read_at is the ZedToken at which the schema was read.
     Any:
       type: object
       properties:
@@ -357,59 +324,18 @@ components:
         caveatParameterTypeChanged:
           $ref: '#/components/schemas/ReflectionCaveatParameterTypeChange'
       description: ReflectionSchemaDiff is the representation of a diff between two schemas.
-    DiffSchemaRequest:
+    ReadSchemaResponse:
       type: object
       properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        comparisonSchema:
+        schemaText:
           type: string
-    ReflectionDefinition:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-          description: 'comment is a human-readable comments on the definition. Will include
-
-            delimiter characters.'
-        relations:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionRelation'
-        permissions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionPermission'
-      description: ReflectionDefinition is the representation of a definition in the schema.
-    ComputablePermissionsResponse:
-      type: object
-      properties:
-        permissions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionRelationReference'
+          title: schema_text is the textual form of the current schema in the system
         readAt:
           $ref: '#/components/schemas/ZedToken'
           description: read_at is the ZedToken at which the schema was read.
-    WriteSchemaRequest:
-      type: object
-      properties:
-        schema:
-          type: string
-          description: 'The Schema containing one or more Object Definitions that will be written
+      description: 'ReadSchemaResponse is the resulting data after having read the Object
 
-            to the Permissions System.
-
-
-            4MiB'
-      description: 'WriteSchemaRequest is the required data used to "upsert" the Schema of a
-
-        Permissions System.'
+        Definitions from a Schema.'
     Status:
       type: object
       properties:
@@ -448,52 +374,111 @@ components:
         You can find out more about this error model and how to work with it in the
 
         [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    ReflectSchemaResponse:
+    DependentRelationsRequest:
       type: object
       properties:
-        definitions:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
+          type: string
+        permissionName:
+          type: string
+    ReflectionCaveat:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the caveat. Will include
+
+            delimiter characters.'
+        parameters:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/ReflectionDefinition'
-          description: definitions are the definitions defined in the schema.
-        caveats:
+            $ref: '#/components/schemas/ReflectionCaveatParameter'
+        expression:
+          type: string
+      description: ReflectionCaveat is the representation of a caveat in the schema.
+    ReflectionDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the definition. Will include
+
+            delimiter characters.'
+        relations:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/ReflectionCaveat'
-          description: caveats are the caveats defined in the schema.
+            $ref: '#/components/schemas/ReflectionRelation'
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionPermission'
+      description: ReflectionDefinition is the representation of a definition in the schema.
+    ReflectionCaveatParameter:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          title: 'type is the type of the parameter. Will be a string representing the
+
+            type, e.g. `int` or `list<string>`'
+        parentCaveatName:
+          type: string
+      description: ReflectionCaveatParameter is the representation of a parameter in a caveat.
+    ReflectionRelationReference:
+      type: object
+      properties:
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        isPermission:
+          type: boolean
+      description: ReflectionRelationReference is a reference to a relation or permission in the schema.
+    ReadSchemaRequest:
+      type: object
+      description: ReadSchemaRequest returns the schema from the database.
+    ComputablePermissionsResponse:
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionRelationReference'
         readAt:
           $ref: '#/components/schemas/ZedToken'
           description: read_at is the ZedToken at which the schema was read.
-    ReflectionTypeReference:
+    ReflectionCaveatParameterTypeChange:
       type: object
       properties:
-        subjectDefinitionName:
+        parameter:
+          $ref: '#/components/schemas/ReflectionCaveatParameter'
+        previousType:
           type: string
-          description: subject_definition_name is the name of the subject's definition.
-        optionalCaveatName:
-          type: string
-          description: optional_caveat_name is the name of the caveat that is applied to the subject, if any.
-        isTerminalSubject:
-          type: boolean
-          description: is_terminal_subject is true if the subject is terminal, meaning it is referenced directly vs a sub-relation.
-        optionalRelationName:
-          type: string
-          description: optional_relation_name is the name of the relation that is applied to the subject, if any.
-        isPublicWildcard:
-          type: boolean
-          description: is_public_wildcard is true if the subject is a public wildcard.
-      description: ReflectionTypeReference is the representation of a type reference in the schema.
-    WriteSchemaResponse:
+    ReflectionPermission:
       type: object
       properties:
-        writtenAt:
-          $ref: '#/components/schemas/ZedToken'
-          description: written_at is the ZedToken at which the schema was written.
-      description: 'WriteSchemaResponse is the resulting data after having written a Schema to
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the permission. Will include
 
-        a Permissions System.'
+            delimiter characters.'
+        parentDefinitionName:
+          type: string
+      description: ReflectionPermission is the representation of a permission in the schema.
     ZedToken:
       type: object
       properties:
@@ -523,52 +508,6 @@ components:
           type: string
           description: optional_permission_name_filter is a prefix that is matched against the permission name.
       description: ReflectionSchemaFilter is a filter that can be applied to the schema on reflection.
-    DiffSchemaResponse:
-      type: object
-      properties:
-        diffs:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionSchemaDiff'
-        readAt:
-          $ref: '#/components/schemas/ZedToken'
-          description: read_at is the ZedToken at which the schema was read.
-    ReflectionPermission:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-          description: 'comment is a human-readable comments on the permission. Will include
-
-            delimiter characters.'
-        parentDefinitionName:
-          type: string
-      description: ReflectionPermission is the representation of a permission in the schema.
-    ReflectionRelationReference:
-      type: object
-      properties:
-        definitionName:
-          type: string
-        relationName:
-          type: string
-        isPermission:
-          type: boolean
-      description: ReflectionRelationReference is a reference to a relation or permission in the schema.
-    ReadSchemaResponse:
-      type: object
-      properties:
-        schemaText:
-          type: string
-          title: schema_text is the textual form of the current schema in the system
-        readAt:
-          $ref: '#/components/schemas/ZedToken'
-          description: read_at is the ZedToken at which the schema was read.
-      description: 'ReadSchemaResponse is the resulting data after having read the Object
-
-        Definitions from a Schema.'
     ReflectSchemaRequest:
       type: object
       properties:
@@ -582,27 +521,88 @@ components:
           title: 'optional_filters defines optional filters that are applied in
 
             an OR fashion to the schema, before being returned'
-    ReflectionCaveat:
+    ReflectionTypeReference:
+      type: object
+      properties:
+        subjectDefinitionName:
+          type: string
+          description: subject_definition_name is the name of the subject's definition.
+        optionalCaveatName:
+          type: string
+          description: optional_caveat_name is the name of the caveat that is applied to the subject, if any.
+        isTerminalSubject:
+          type: boolean
+          description: is_terminal_subject is true if the subject is terminal, meaning it is referenced directly vs a sub-relation.
+        optionalRelationName:
+          type: string
+          description: optional_relation_name is the name of the relation that is applied to the subject, if any.
+        isPublicWildcard:
+          type: boolean
+          description: is_public_wildcard is true if the subject is a public wildcard.
+      description: ReflectionTypeReference is the representation of a type reference in the schema.
+    ReflectionRelation:
       type: object
       properties:
         name:
           type: string
         comment:
           type: string
-          description: 'comment is a human-readable comments on the caveat. Will include
-
-            delimiter characters.'
-        parameters:
+        parentDefinitionName:
+          type: string
+        subjectTypes:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/ReflectionCaveatParameter'
-        expression:
-          type: string
-      description: ReflectionCaveat is the representation of a caveat in the schema.
-    ReadSchemaRequest:
+            $ref: '#/components/schemas/ReflectionTypeReference'
+      description: ReflectionRelation is the representation of a relation in the schema.
+    WriteSchemaRequest:
       type: object
-      description: ReadSchemaRequest returns the schema from the database.
+      properties:
+        schema:
+          type: string
+          description: 'The Schema containing one or more Object Definitions that will be written
+
+            to the Permissions System.
+
+
+            4MiB'
+      description: 'WriteSchemaRequest is the required data used to "upsert" the Schema of a
+
+        Permissions System.'
+    DiffSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        comparisonSchema:
+          type: string
+    ReflectSchemaResponse:
+      type: object
+      properties:
+        definitions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionDefinition'
+          description: definitions are the definitions defined in the schema.
+        caveats:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionCaveat'
+          description: caveats are the caveats defined in the schema.
+        readAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: read_at is the ZedToken at which the schema was read.
+    WriteSchemaResponse:
+      type: object
+      properties:
+        writtenAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: written_at is the ZedToken at which the schema was written.
+      description: 'WriteSchemaResponse is the resulting data after having written a Schema to
+
+        a Permissions System.'
   securitySchemes:
     BearerAuth:
       type: http
