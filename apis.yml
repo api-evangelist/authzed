@@ -167,6 +167,9 @@ apis:
   - type: SDKs
     url: https://authzed.com/docs/spicedb/getting-started/client-libraries
 common:
+  - type: CapabilityMap
+    url: capabilities/authzed-capability-edges.yml
+    name: Authzed Business Capability Map
   - type: IssueTracker
     url: https://github.com/authzed/api/issues
   - type: Releases
