@@ -190,17 +190,24 @@ paths:
                 $ref: '#/components/schemas/Status'
 components:
   schemas:
-    DiffSchemaResponse:
+    ReadSchemaRequest:
+      type: object
+      description: ReadSchemaRequest returns the schema from the database.
+    Any:
       type: object
       properties:
-        diffs:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionSchemaDiff'
-        readAt:
-          $ref: '#/components/schemas/ZedToken'
-          description: read_at is the ZedToken at which the schema was read.
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    DiffSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        comparisonSchema:
+          type: string
     DependentRelationsResponse:
       type: object
       properties:
@@ -212,29 +219,15 @@ components:
         readAt:
           $ref: '#/components/schemas/ZedToken'
           description: read_at is the ZedToken at which the schema was read.
-    ReflectionRelationSubjectTypeChange:
+    WriteSchemaResponse:
       type: object
       properties:
-        relation:
-          $ref: '#/components/schemas/ReflectionRelation'
-        changedSubjectType:
-          $ref: '#/components/schemas/ReflectionTypeReference'
-    ComputablePermissionsRequest:
-      type: object
-      properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        definitionName:
-          type: string
-        relationName:
-          type: string
-        optionalDefinitionNameFilter:
-          type: string
-          description: 'optional_definition_name_match is a prefix that is matched against the definition name(s)
+        writtenAt:
+          $ref: '#/components/schemas/ZedToken'
+          description: written_at is the ZedToken at which the schema was written.
+      description: 'WriteSchemaResponse is the resulting data after having written a Schema to
 
-            for the permissions returned.
-
-            If not specified, will be ignored.'
+        a Permissions System.'
     Consistency:
       type: object
       properties:
@@ -274,14 +267,37 @@ components:
         By defining a consistency requirement, and a token at which those
 
         requirements should be applied, where applicable.'
-    Any:
+    ReflectionCaveatParameter:
       type: object
       properties:
-        '@type':
+        name:
           type: string
-          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
-      additionalProperties: {}
-      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+        type:
+          type: string
+          title: 'type is the type of the parameter. Will be a string representing the
+
+            type, e.g. `int` or `list<string>`'
+        parentCaveatName:
+          type: string
+      description: ReflectionCaveatParameter is the representation of a parameter in a caveat.
+    ReflectionCaveat:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the caveat. Will include
+
+            delimiter characters.'
+        parameters:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionCaveatParameter'
+        expression:
+          type: string
+      description: ReflectionCaveat is the representation of a caveat in the schema.
     ReflectionSchemaDiff:
       type: object
       properties:
@@ -324,18 +340,45 @@ components:
         caveatParameterTypeChanged:
           $ref: '#/components/schemas/ReflectionCaveatParameterTypeChange'
       description: ReflectionSchemaDiff is the representation of a diff between two schemas.
-    ReadSchemaResponse:
+    DiffSchemaResponse:
       type: object
       properties:
-        schemaText:
-          type: string
-          title: schema_text is the textual form of the current schema in the system
+        diffs:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionSchemaDiff'
         readAt:
           $ref: '#/components/schemas/ZedToken'
           description: read_at is the ZedToken at which the schema was read.
-      description: 'ReadSchemaResponse is the resulting data after having read the Object
+    ReflectionRelation:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+        parentDefinitionName:
+          type: string
+        subjectTypes:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionTypeReference'
+      description: ReflectionRelation is the representation of a relation in the schema.
+    ReflectSchemaRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        optionalFilters:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionSchemaFilter'
+          title: 'optional_filters defines optional filters that are applied in
 
-        Definitions from a Schema.'
+            an OR fashion to the schema, before being returned'
     Status:
       type: object
       properties:
@@ -374,80 +417,6 @@ components:
         You can find out more about this error model and how to work with it in the
 
         [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    DependentRelationsRequest:
-      type: object
-      properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        definitionName:
-          type: string
-        permissionName:
-          type: string
-    ReflectionCaveat:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-          description: 'comment is a human-readable comments on the caveat. Will include
-
-            delimiter characters.'
-        parameters:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionCaveatParameter'
-        expression:
-          type: string
-      description: ReflectionCaveat is the representation of a caveat in the schema.
-    ReflectionDefinition:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-          description: 'comment is a human-readable comments on the definition. Will include
-
-            delimiter characters.'
-        relations:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionRelation'
-        permissions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionPermission'
-      description: ReflectionDefinition is the representation of a definition in the schema.
-    ReflectionCaveatParameter:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-          title: 'type is the type of the parameter. Will be a string representing the
-
-            type, e.g. `int` or `list<string>`'
-        parentCaveatName:
-          type: string
-      description: ReflectionCaveatParameter is the representation of a parameter in a caveat.
-    ReflectionRelationReference:
-      type: object
-      properties:
-        definitionName:
-          type: string
-        relationName:
-          type: string
-        isPermission:
-          type: boolean
-      description: ReflectionRelationReference is a reference to a relation or permission in the schema.
-    ReadSchemaRequest:
-      type: object
-      description: ReadSchemaRequest returns the schema from the database.
     ComputablePermissionsResponse:
       type: object
       properties:
@@ -459,26 +428,29 @@ components:
         readAt:
           $ref: '#/components/schemas/ZedToken'
           description: read_at is the ZedToken at which the schema was read.
-    ReflectionCaveatParameterTypeChange:
+    WriteSchemaRequest:
       type: object
       properties:
-        parameter:
-          $ref: '#/components/schemas/ReflectionCaveatParameter'
-        previousType:
+        schema:
           type: string
-    ReflectionPermission:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-          description: 'comment is a human-readable comments on the permission. Will include
+          description: 'The Schema containing one or more Object Definitions that will be written
 
-            delimiter characters.'
-        parentDefinitionName:
+            to the Permissions System.
+
+
+            4MiB'
+      description: 'WriteSchemaRequest is the required data used to "upsert" the Schema of a
+
+        Permissions System.'
+    DependentRelationsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
           type: string
-      description: ReflectionPermission is the representation of a permission in the schema.
+        permissionName:
+          type: string
     ZedToken:
       type: object
       properties:
@@ -508,19 +480,16 @@ components:
           type: string
           description: optional_permission_name_filter is a prefix that is matched against the permission name.
       description: ReflectionSchemaFilter is a filter that can be applied to the schema on reflection.
-    ReflectSchemaRequest:
+    ReflectionRelationReference:
       type: object
       properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        optionalFilters:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionSchemaFilter'
-          title: 'optional_filters defines optional filters that are applied in
-
-            an OR fashion to the schema, before being returned'
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        isPermission:
+          type: boolean
+      description: ReflectionRelationReference is a reference to a relation or permission in the schema.
     ReflectionTypeReference:
       type: object
       properties:
@@ -540,42 +509,6 @@ components:
           type: boolean
           description: is_public_wildcard is true if the subject is a public wildcard.
       description: ReflectionTypeReference is the representation of a type reference in the schema.
-    ReflectionRelation:
-      type: object
-      properties:
-        name:
-          type: string
-        comment:
-          type: string
-        parentDefinitionName:
-          type: string
-        subjectTypes:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/ReflectionTypeReference'
-      description: ReflectionRelation is the representation of a relation in the schema.
-    WriteSchemaRequest:
-      type: object
-      properties:
-        schema:
-          type: string
-          description: 'The Schema containing one or more Object Definitions that will be written
-
-            to the Permissions System.
-
-
-            4MiB'
-      description: 'WriteSchemaRequest is the required data used to "upsert" the Schema of a
-
-        Permissions System.'
-    DiffSchemaRequest:
-      type: object
-      properties:
-        consistency:
-          $ref: '#/components/schemas/Consistency'
-        comparisonSchema:
-          type: string
     ReflectSchemaResponse:
       type: object
       properties:
@@ -594,15 +527,82 @@ components:
         readAt:
           $ref: '#/components/schemas/ZedToken'
           description: read_at is the ZedToken at which the schema was read.
-    WriteSchemaResponse:
+    ReadSchemaResponse:
       type: object
       properties:
-        writtenAt:
+        schemaText:
+          type: string
+          title: schema_text is the textual form of the current schema in the system
+        readAt:
           $ref: '#/components/schemas/ZedToken'
-          description: written_at is the ZedToken at which the schema was written.
-      description: 'WriteSchemaResponse is the resulting data after having written a Schema to
+          description: read_at is the ZedToken at which the schema was read.
+      description: 'ReadSchemaResponse is the resulting data after having read the Object
 
-        a Permissions System.'
+        Definitions from a Schema.'
+    ReflectionRelationSubjectTypeChange:
+      type: object
+      properties:
+        relation:
+          $ref: '#/components/schemas/ReflectionRelation'
+        changedSubjectType:
+          $ref: '#/components/schemas/ReflectionTypeReference'
+    ReflectionPermission:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the permission. Will include
+
+            delimiter characters.'
+        parentDefinitionName:
+          type: string
+      description: ReflectionPermission is the representation of a permission in the schema.
+    ReflectionDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+          description: 'comment is a human-readable comments on the definition. Will include
+
+            delimiter characters.'
+        relations:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionRelation'
+        permissions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/ReflectionPermission'
+      description: ReflectionDefinition is the representation of a definition in the schema.
+    ReflectionCaveatParameterTypeChange:
+      type: object
+      properties:
+        parameter:
+          $ref: '#/components/schemas/ReflectionCaveatParameter'
+        previousType:
+          type: string
+    ComputablePermissionsRequest:
+      type: object
+      properties:
+        consistency:
+          $ref: '#/components/schemas/Consistency'
+        definitionName:
+          type: string
+        relationName:
+          type: string
+        optionalDefinitionNameFilter:
+          type: string
+          description: 'optional_definition_name_match is a prefix that is matched against the definition name(s)
+
+            for the permissions returned.
+
+            If not specified, will be ignored.'
   securitySchemes:
     BearerAuth:
       type: http
