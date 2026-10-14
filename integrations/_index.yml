@@ -27,3 +27,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: authzed-datadog-own
+  label: Datadog (own)
+  partner: datadog
+  partner_name: Datadog (own)
+  category: Developer Tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://github.com/DataDog/integrations-extras/tree/master/authzed_cloud
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
