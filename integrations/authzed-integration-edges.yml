@@ -7,6 +7,7 @@ checked:
 - https://github.com/cncf/k8s-conformance
 - https://github.com/cncf/landscape
 - https://github.com/marketplace?type=actions
+- eclipse/integrations/eclipse-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -43,23 +44,6 @@ edges:
   - Verified creator
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
-- partner_name: Datadog (own)
-  partner: datadog
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://github.com/DataDog/integrations-extras/tree/master/authzed_cloud
-  mirror_of: datadog/integrations/datadog-integration-edges.yml
-  apps:
-  - AuthZed Cloud
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Developer Tools
 - partner_name: CNCF (Cloud Native Landscape)
   partner: cncf
   partner_match: register
@@ -94,5 +78,41 @@ edges:
     detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
+- partner_name: Datadog (own)
+  partner: datadog
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/DataDog/integrations-extras/tree/master/authzed_cloud
+  mirror_of: datadog/integrations/datadog-integration-edges.yml
+  apps:
+  - AuthZed Cloud
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Developer Tools
+- partner_name: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: open-vsx
+  evidence: https://open-vsx.org/namespace/authzed
+  mirror_of: eclipse/integrations/eclipse-integration-edges.yml
+  apps:
+  - SpiceDB VSCode
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified namespace
 source:
 - https://github.com/marketplace?type=actions
