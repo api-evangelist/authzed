@@ -66,38 +66,177 @@
 
 Authzed is a SpiceDB-based authorization platform providing REST and gRPC APIs for Zanzibar-style relationship-based access control. It enables developers to manage schemas, write relationship tuples, and execute fine-grained permission checks at scale. Authzed Cloud delivers hosted SpiceDB infrastructure with pay-as-you-grow billing, processing tens of billions of permission checks daily across enterprise and AI-native applications.
 
-**Website:** https://authzed.com  
-**Documentation:** https://authzed.com/docs  
-**GitHub Org:** https://github.com/authzed  
-**Pricing:** https://authzed.com/pricing  
-**Status:** https://status.authzed.com/  
-**Blog:** https://authzed.com/blog  
-**LinkedIn:** https://www.linkedin.com/company/authzed  
-**X:** https://twitter.com/authzed  
+**Areas:** Authorization · Access Control · Permissions · Zanzibar · SpiceDB · gRPC · REST · Relationship-Based Access Control · ReBAC · Fine-Grained Authorization · Identity · Security
 
-## APIs
+## Authzed on APIs.io
 
-- **SpiceDB Permissions API** — gRPC and HTTP/JSON interface for CheckPermission, WriteRelationships, LookupResources, LookupSubjects, ReadRelationships, DeleteRelationships, WriteSchema, and ReadSchema operations
-- **Authzed Cloud API** — Managed cloud with Restricted API Access, service account role policies, and multi-region SpiceDB infrastructure
+Everything profiled for Authzed is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/authzed/](https://apis.io/providers/authzed/)** — or go straight to one of the APIs or properties below.
 
-## Client Libraries
+### APIs (6)
 
-| Language | Repository |
-|----------|------------|
-| Go | https://github.com/authzed/authzed-go |
-| Node.js | https://github.com/authzed/authzed-node |
-| Python | https://github.com/authzed/authzed-py |
-| Ruby | https://github.com/authzed/authzed-rb |
-| Java | https://github.com/authzed/authzed-java |
-| .NET | https://github.com/authzed/authzed-dotnet |
+- [Authzed Cloud API](https://apis.io/apis/authzed/authzed-cloud-api/) — The managed cloud offering of SpiceDB by Authzed, providing production-ready authorization infrastructure with hourly metered billing. Includes all SpiceDB…
+- [Authzed Experimental API](https://apis.io/apis/authzed/authzed-experimental-api/) — Experimental and preview endpoints subject to change
+- [Authzed Permissions API](https://apis.io/apis/authzed/authzed-permissions-api/) — Check, expand, and lookup permissions on resources and subjects
+- [Authzed Relationships API](https://apis.io/apis/authzed/authzed-relationships-api/) — Read, write, delete, and bulk import/export relationship tuples
+- [Authzed Schema API](https://apis.io/apis/authzed/authzed-schema-api/) — Manage SpiceDB schema definitions, diff schemas, and reflect schema metadata
+- [Authzed Watch API](https://apis.io/apis/authzed/authzed-watch-api/) — Stream real-time relationship change updates
 
-CLI tool: https://github.com/authzed/zed
+### Published properties
 
-## Files
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-| File | Description |
-|------|-------------|
-| `apis.yml` | APIs.json 0.19 index |
-| `plans/authzed-plans-pricing.yml` | Pricing plans (Open Source, Cloud, Dedicated, Self-Hosted) |
-| `rate-limits/authzed-rate-limits.yml` | Per-operation limits and throughput figures |
-| `finops/authzed-finops.yml` | FinOps Framework 1.0 FOCUS-aligned cost guidance |
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Authzed Agentic Access](https://apis.io/agentic-access/authzed/authzed-agentic-access/)
+
+#### JSON Schema (16)
+
+The data models the API reads and writes.
+
+- [CheckPermissionRequest](https://apis.io/schemas/authzed/CheckPermissionRequest/)
+- [CheckPermissionResponse](https://apis.io/schemas/authzed/CheckPermissionResponse/)
+- [DeleteRelationshipsRequest](https://apis.io/schemas/authzed/DeleteRelationshipsRequest/)
+- [DeleteRelationshipsResponse](https://apis.io/schemas/authzed/DeleteRelationshipsResponse/)
+- [ObjectReference](https://apis.io/schemas/authzed/ObjectReference/)
+- [PermissionRelationshipTree](https://apis.io/schemas/authzed/PermissionRelationshipTree/)
+- [ReadRelationshipsRequest](https://apis.io/schemas/authzed/ReadRelationshipsRequest/)
+- [ReadRelationshipsResponse](https://apis.io/schemas/authzed/ReadRelationshipsResponse/)
+- [ReadSchemaResponse](https://apis.io/schemas/authzed/ReadSchemaResponse/)
+- [Relationship](https://apis.io/schemas/authzed/Relationship/)
+- [SubjectReference](https://apis.io/schemas/authzed/SubjectReference/)
+- [WriteRelationshipsRequest](https://apis.io/schemas/authzed/WriteRelationshipsRequest/)
+- [WriteRelationshipsResponse](https://apis.io/schemas/authzed/WriteRelationshipsResponse/)
+- [WriteSchemaRequest](https://apis.io/schemas/authzed/WriteSchemaRequest/)
+- [WriteSchemaResponse](https://apis.io/schemas/authzed/WriteSchemaResponse/)
+- [ZedToken](https://apis.io/schemas/authzed/ZedToken/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Authzed Context](https://apis.io/jsonld/authzed/authzed-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Authzed SpiceDB API Vocabulary](https://apis.io/vocabularies/authzed/authzed-vocabulary/)
+
+#### Examples (5)
+
+Example requests and responses.
+
+- [Check Permission Request](https://apis.io/examples/authzed/check-permission-request/)
+- [Check Permission Response](https://apis.io/examples/authzed/check-permission-response/)
+- [Lookup Resources Request](https://apis.io/examples/authzed/lookup-resources-request/)
+- [Write Relationships Request](https://apis.io/examples/authzed/write-relationships-request/)
+- [Write Schema Request](https://apis.io/examples/authzed/write-schema-request/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Authzed SpiceDB Permissions Experimental API](https://apis.io/collections/authzed/open-authzed-experimental-api/)
+- [Authzed SpiceDB Experimental Permissions API](https://apis.io/collections/authzed/open-authzed-permissions-api/)
+- [Authzed SpiceDB Permissions Experimental Relationships API](https://apis.io/collections/authzed/open-authzed-relationships-api/)
+- [Authzed SpiceDB Permissions Experimental Schema API](https://apis.io/collections/authzed/open-authzed-schema-api/)
+- [Authzed SpiceDB Permissions Experimental Watch API](https://apis.io/collections/authzed/open-authzed-watch-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Authzed — jsonschema rules](https://apis.io/rules/authzed/authzed-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Authzed Authentication](https://apis.io/security/authzed/authzed-authentication/)
+- [Authzed Domain Security](https://apis.io/security/authzed/authzed-domain-security/)
+- [Authzed Trust Center](https://apis.io/security/authzed/authzed-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Authzed Plans Pricing](https://apis.io/plans/authzed/authzed-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Authzed Rate Limits](https://apis.io/rate-limits/authzed/authzed-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Authzed Finops](https://apis.io/finops/authzed/authzed-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://authzed.com)
+- [Documentation](https://authzed.com/docs)
+- [Pricing](https://authzed.com/pricing)
+- [Blog](https://authzed.com/blog)
+- [Status](https://status.authzed.com/)
+
+## API Evangelist rating
+
+**Kin Score 40.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 51.4 |
+| Contract governance | 9.8 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 26.3 |
+
+**Agent readiness 19.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/authzed/](https://apis.io/providers/authzed/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Authzed: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/authzed/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
